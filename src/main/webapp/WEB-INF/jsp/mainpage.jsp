@@ -17,7 +17,7 @@
     <link href='http://fonts.googleapis.com/css?family=Barlow&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="${javaScript}"></script>
-    <title>HR MAJ ...</title>
+    <title>FilmRecommender</title>
 </head>
 
 <body>
