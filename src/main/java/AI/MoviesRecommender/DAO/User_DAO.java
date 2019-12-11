@@ -13,27 +13,28 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import org.springframework.stereotype.Repository;
 
-import AI.MoviesRecommender.Model.Film;
+import AI.MoviesRecommender.Model.User;
 
 /**
  * Klasa do tworzenia i odczytywania danych o filmach z bazy danych(plików)
  * 
  */
 @Repository
-public class Film_DAO {
+public class User_DAO {
 
-    List<Film> data = new ArrayList<Film>();
+    List<User> data = new ArrayList<User>();
+
     /**
-     * Standardowy konstruktor. 
-     * Wczytuję baze.
+     * Standardowy konstruktor. Wczytuję baze.
      */
-    public Film_DAO(){
+    public User_DAO() {
         this.readDatabase();
     }
 
-    // @Override //Jeśli ma zapisywać bazę danych podczas usuwania obiektu z pamięci.
+    // @Override //Jeśli ma zapisywać bazę danych podczas usuwania obiektu z
+    // pamięci.
     // public void finalize(){
-        
+
     // }
 
     /**
@@ -43,49 +44,74 @@ public class Film_DAO {
         ObjectMapper obj = new ObjectMapper();
         int i = 1;
         while (true) {
-            Film film = null;
+            User user = null;
             try {
-                film = obj.readValue(TypeReference.class.getResourceAsStream("/static/database/films/"+i+"_Film.json"),
-                        Film.class);
-                data.add(film);
+                user = obj.readValue(TypeReference.class.getResourceAsStream("/static/database/users/" + i + "_User.json"), User.class);
+                data.add(user);
                 i++;
             } catch (Exception e) {
-                System.out.println("Wczytano " + --i + " filmow");
+                System.out.println("Wczytano "+ --i +" userow");
                 break;
             }
         }
     }
+
     /**
-     * Pobieranie bazy danych
-     * Jeśli baza danych jest pusta pobiera ją a następnie zwraca
-     * @return List<Film> - baza danych
+     * Pobieranie bazy danych Jeśli baza danych jest pusta pobiera ją a następnie
+     * zwraca
+     * 
+     * @return List<User> - baza danych
      */
-    public List<Film> getDatabase(){
+    public List<User> getDatabase() {
         if (data.isEmpty()) {
             this.readDatabase();
         }
         return this.data;
     }
+
     /**
      * Zapisuje całą bazę danych do plików
      */
-    public void save(){
-        for (Film film : data) {
-            this.save(film);
+    public void save() {
+        for (User user : data) {
+            this.save(user);
         }
     }
     /**
-     * Zapisuje podany film do pliku
-     * @param film - film do zapisania
+     * Sprawdza czy baza danych zawiera już to ID
+     * @param id - id do sprawdzenia
+     * @return boolean - czy baza zawiera dane ID
      */
-    public void save(Film film){
+    public boolean contains(Long id){
+        boolean czyZawiera = false;
+        for (User user : data) {
+            if (user.getID() == id) {
+                czyZawiera = true;
+            }
+        }
+        return czyZawiera;
+    }
+    /**
+     * Zwraca następne wole ID dla usera
+     * @return
+     */
+    public Long getNextID() {
+        return new Long(data.size()+1);
+    }
+
+    /**
+     * Zapisuje podany user do pliku
+     * 
+     * @param user - user do zapisania
+     */
+    public void save(User user) {
         try {
 
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-            File projFile = new File("src/main/resources/static/database/films/" + film.getID() + "_Film.json");
+            File projFile = new File("src/main/resources/static/database/users/" + user.getID() + "_User.json");
             projFile.createNewFile();// utworzenie pliku jeśli nie istnieje
-            objectMapper.writeValue(projFile, film);//plik projektu (src)
+            objectMapper.writeValue(projFile, user);// plik projektu (src)
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -97,9 +123,10 @@ public class Film_DAO {
 
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-            File appFile = new File(TypeReference.class.getResource("/static/database/films/").getPath() + film.getID() + "_Film.json");
+            File appFile = new File(
+                    TypeReference.class.getResource("/static/database/users/").getPath() + user.getID() + "_User.json");
             appFile.createNewFile();// utworzenie pliku jeśli nie istnieje
-            objectMapper.writeValue(appFile, film);// plik aplikacji (target)
+            objectMapper.writeValue(appFile, user);// plik aplikacji (target)
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
