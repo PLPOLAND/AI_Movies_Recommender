@@ -9,7 +9,7 @@ import java.util.List;
  * @author Rafał Świąder
  */
 
- public class DataBase
+ public class Engine
  {
      //Listy użytkowników i filmów
      List<User> users; 
@@ -18,7 +18,7 @@ import java.util.List;
      final float similarity_treshold = 0.75f;
      final int similar_users_limit = 100;
 
-     DataBase(List<User> users, List<Film> films)
+     Engine(List<User> users, List<Film> films)
      {
         this.users = users;
         this.films = films;
@@ -38,7 +38,7 @@ import java.util.List;
      {
          for(Film i:this.films)
          {
-            if(i.getId() == ID)
+            if(i.getID() == ID)
                 return i;
          }
          return null;
@@ -47,8 +47,28 @@ import java.util.List;
      /* Algorytmy doboru */
      public float getUsersSimilarity(Long first_ID, Long second_ID)
      {
-         //...
-        return 0.0f;
+        Long same_rating = 0L;
+        Long opposite_rating = 0L;
+
+        for(Long i:getUser(first_ID).polubione)
+        {
+            if(getUser(second_ID).polubione.contains(i))
+                same_rating++;
+            else if(getUser(second_ID).nielubione.contains(i))
+                opposite_rating--;
+        }
+
+        for(Long i:getUser(first_ID).nielubione)
+        {
+            if(getUser(second_ID).polubione.contains(i))
+                same_rating--;
+            else if(getUser(second_ID).nielubione.contains(i))
+                opposite_rating++;
+        }
+
+        float similarity_precantage = (float)same_rating / (float)same_rating+opposite_rating;
+
+        return similarity_precantage;
      }
 
      public List<User> getSimilarUsers(Long ID)//Lista użytkowników o podobnych ocenach
