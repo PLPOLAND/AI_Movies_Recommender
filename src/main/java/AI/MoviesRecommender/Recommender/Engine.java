@@ -1,7 +1,10 @@
-package AI.MoviesRecommender.Model;
+package AI.MoviesRecommender.Recommender;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import AI.MoviesRecommender.Model.User;
+import AI.MoviesRecommender.Model.Film;
 
 /**
  * Klasa przetrzymująca dane o filmie.
@@ -9,11 +12,11 @@ import java.util.List;
  * @author Rafał Świąder
  */
 
- public class Engine
- {
-     //Listy użytkowników i filmów
-     List<User> users; 
-     List<Film> films;
+public class Engine {
+
+    // Listy użytkowników i filmów
+    List<User> users;
+    List<Film> films;
 
      final float similarity_treshold = 0.75f;
      final int similar_users_limit = 100;
@@ -50,19 +53,19 @@ import java.util.List;
         Long same_rating = 0L;
         Long opposite_rating = 0L;
 
-        for(Long i:getUser(first_ID).polubione)
+        for(Long i:getUser(first_ID).getPolubione())
         {
-            if(getUser(second_ID).polubione.contains(i))
+            if(getUser(second_ID).getPolubione().contains(i))
                 same_rating++;
-            else if(getUser(second_ID).nielubione.contains(i))
+            else if(getUser(second_ID).getNielubione().contains(i))
                 opposite_rating--;
         }
 
-        for(Long i:getUser(first_ID).nielubione)
+        for(Long i:getUser(first_ID).getNielubione())
         {
-            if(getUser(second_ID).polubione.contains(i))
+            if(getUser(second_ID).getPolubione().contains(i))
                 same_rating--;
-            else if(getUser(second_ID).nielubione.contains(i))
+            else if(getUser(second_ID).getNielubione().contains(i))
                 opposite_rating++;
         }
 
