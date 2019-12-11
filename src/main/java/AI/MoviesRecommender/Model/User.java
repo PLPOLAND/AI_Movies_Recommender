@@ -93,5 +93,20 @@ public class User {
         this.polubione = polubione;
         this.nielubione = nielubione;
     }
+    public User(){}
 
+    @Override
+    public String toString() {
+        return "{" +
+            " ID='" + getID() + "'" +
+            ", imie='" + getImie() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", nazwisko='" + getNazwisko() + "'" +
+            ", nick='" + getNick() + "'" +
+            ", pass='" + getPass() + "'" +
+            ", polubione='" + getPolubione() + "'" +
+            ", nielubione='" + getNielubione() + "'" +
+            "}";
+    }
+     
 }

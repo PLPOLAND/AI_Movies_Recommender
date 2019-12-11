@@ -13,11 +13,21 @@ public class Film {
     String gatunek; //gatunek filmu
     int rokProdukcji; //rok produkcji filmu
 
-    public Long getId() {
+    public Film(){}
+    
+    public Film(Long id, String tytul, String zdjecie, String gatunek, int rokProdukcji) {
+        this.id = id;
+        this.tytul = tytul;
+        this.zdjecie = zdjecie;
+        this.gatunek = gatunek;
+        this.rokProdukcji = rokProdukcji;
+    }
+
+    public Long getID() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setID(Long id) {
         this.id = id;
     }
 
@@ -51,5 +61,16 @@ public class Film {
 
     public void setRokProdukcji(int rokProdukcji) {
         this.rokProdukcji = rokProdukcji;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getID() + "'" +
+            ", tytul='" + getTytul() + "'" +
+            ", zdjecie='" + getZdjecie() + "'" +
+            ", gatunek='" + getGatunek() + "'" +
+            ", rokProdukcji='" + getRokProdukcji() + "'" +
+            "}";
     }
 }
