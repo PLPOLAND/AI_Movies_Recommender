@@ -2,9 +2,9 @@
   "imie" : "Marek",
   "email" : "Marek@paldyna.pl",
   "nazwisko" : "Pałdyna",
-  "nick" : "Kozak",
+  "nick" : "PLPOLAND",
   "pass" : "xxx",
-  "polubione" : [ ],
+  "polubione" : [1,2,3,4],
   "nielubione" : [ ],
   "id" : 2
 }

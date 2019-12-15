@@ -30,13 +30,45 @@ public class User_DAO {
     public User_DAO() {
         this.readDatabase();
     }
-
-    // @Override //Jeśli ma zapisywać bazę danych podczas usuwania obiektu z
-    // pamięci.
-    // public void finalize(){
-
-    // }
-
+    /**
+     * Sprawdza czy istnieje user o podanym nicku i haśle
+     * @param name - nick
+     * @param pass - hasło
+     * @return User - jeśli znaleziono / null - jeśli nie znaleziono
+     */
+    public User getUserLoginData(String name, String pass) {
+        User usr = null;
+        for (User user : data) {
+            if (user.getNick().equals(name)) {
+                usr=user;
+            }
+        }
+        if (usr==null) {
+            return null;
+        } else {
+            if (usr.getPass().equals(pass)) {
+                return usr;
+            } else {
+                return null;
+            }
+        }
+        
+    }
+    
+    /**
+     * Pobieranie usera za pomocą ID
+     * 
+     * @param ID - id usera do pobrania
+     * @return User - jeśli znaleziono / null - jeśli nie znaleziono
+     */
+    public User getUserByID(Long ID) {
+        for (User user : data) {
+            if (user.getID() == ID) {
+                return user;//znaleziony user
+            }
+        }
+        return null;//nie znaleziono usera
+    }
     /**
      * Czyta bazę danych z plików
      */

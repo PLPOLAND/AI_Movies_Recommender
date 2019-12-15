@@ -3,6 +3,8 @@ package AI.MoviesRecommender.Controler;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +14,7 @@ import AI.MoviesRecommender.DAO.Film_DAO;
 import AI.MoviesRecommender.DAO.User_DAO;
 import AI.MoviesRecommender.Model.Film;
 import AI.MoviesRecommender.Model.User;
+import AI.MoviesRecommender.Security.Security;
 
 /**
  * RestController
@@ -24,6 +27,18 @@ public class RESTController {
     @Autowired
     Film_DAO filmDatabase;
 
+
+    @RequestMapping("/login")
+    public boolean login(HttpServletRequest request) {
+        Security security = new Security(request, userDatabase);
+
+        if (security.login()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     @RequestMapping("/tmp")
     public User tmp(){
         return new User(1L,"Marek","Marek@paldyna.pl","Pałdyna","Kozak","xxx", new ArrayList<Long>(), new ArrayList<Long>());

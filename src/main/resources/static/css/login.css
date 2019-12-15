@@ -1,0 +1,96 @@
+body{
+	background-color: #000000;
+}
+#backgroundContainer{
+	position: fixed;
+	display: block;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	top: 0px;
+	left: 0px;
+	background-image:linear-gradient(#001020a0, #001020a0), url(../img/wallhaven-4lpgpl.png);
+	background-size: cover; 
+	background-position: center;
+	background-color: #000000;
+	background-attachment: fixed;
+	filter: blur(10px);
+}
+.container{
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    top: 0px;
+    left: 0px;
+    
+}
+
+.login-container{
+	display: block;
+	width: 60%;
+	height: 60%;
+	/* background-color: red; */
+	position: absolute;
+	top:20%;
+	left: 20%;
+}
+.title{
+	color: #ffffff;
+	text-align: center;
+	font-size: 42px;
+}
+.logo{
+	display: block;
+	width: auto;
+	height: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 50px;
+}
+#err-msg{
+	display: none;
+	text-align: center;
+	width: 100%;
+	padding: 5px;
+	color: #FF0000;
+}
+
+input.form-field{
+	display: block;
+	width: calc(500px - 10px);
+	margin-left: auto;
+	margin-right: auto;
+	padding-right: 0px;
+	padding-left: 10px;
+	border: 0px;
+	color: #ffffff;
+	background-color: #fdcf0065;
+	margin-bottom: 10px;
+	border-radius: 0.25em;
+	font-size: 20px;
+}
+input.form-field:hover{
+	background-color: #fdcf0095;
+}
+
+.form-btn-submit{
+	display: block;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 20px;
+	line-height: 150%;
+	background-color: #fdcf0065;
+	color: #ffffff;
+	border: 0px;
+	border-radius: 0.25em;
+	cursor: pointer;
+}
+.form-btn-submit:hover{
+	background-color: #fdcf0095;
+}

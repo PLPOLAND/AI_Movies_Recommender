@@ -2,9 +2,9 @@
   "imie" : "Rafał",
   "email" : "Raffi@fifi.pl",
   "nazwisko" : "Fifuś",
-  "nick" : "Fifuś",
-  "pass" : "xxfffsx",
-  "polubione" : [ ],
-  "nielubione" : [ ],
+  "nick" : "Raffik",
+  "pass" : "xxx",
+  "polubione" : [ 1, 2],
+  "nielubione" : [ 3, 4],
   "id" : 1
 }

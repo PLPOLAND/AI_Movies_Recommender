@@ -1,12 +1,14 @@
 package AI.MoviesRecommender.Controler;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import AI.MoviesRecommender.DAO.Film_DAO;
 import AI.MoviesRecommender.DAO.User_DAO;
-import Generator.Generator;
+import AI.MoviesRecommender.Security.Security;
 
 
 
@@ -18,15 +20,30 @@ public class MainController {
 	User_DAO userDatabase;
 
 
-
+/**
+ * Strona główna
+ */
 	@RequestMapping("/")
-	public String main() {
-		Generator generator = new Generator(filmDatabase,userDatabase);
-		//generator.generateUsers(5); // generowanie 5 userów
+	public String main(HttpServletRequest request) {
+		Security security = new Security(request, userDatabase);
+		if (!security.isLoged())
+			return "redirect:/login";
+
 		return "mainpage";
 	}
+	/**
+	 * Strona z tworzeniem nowych filmów
+	 */
 	@RequestMapping("/filmMaker")
 	public String filmMaker(){
 		return "filmcreator";
+	}
+
+	/**
+	 * Strona logowania
+	 */
+	@RequestMapping("/login")
+	public String login() {
+		return "loginPage";
 	}
 }
