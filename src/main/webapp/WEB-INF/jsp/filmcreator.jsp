@@ -26,10 +26,11 @@
     <div id="backgroundContainer"></div>
     <div class="container">
         <div id="mainbody">
-            <input id="tytul" name="tytul" placeholder="Tytuł" required><br>
-            <input id="zdjecie" name="zdjecie" placeholder="Adres Zdjęcia" required><div id="zdj"></div><br>
-            <input id="gatunek" name="gatunek" placeholder="Gatunek Filmu" required><br>
-            <input id="rokProdukcji" type="number" name="rokProdukcji" placeholder="Rok Produkcji" required><br>
+            <div id="info" style="font-size: large; color: red;"></div>
+            <input id="tytul" name="tytul" placeholder="Tytuł"><br>
+            <input id="zdjecie" name="zdjecie" placeholder="Adres Zdjęcia"><div id="zdj"></div><br>
+            <input id="gatunek" name="gatunek" placeholder="Gatunek Filmu"><br>
+            <input id="rokProdukcji" type="number" name="rokProdukcji" placeholder="Rok Produkcji"><br>
             <input id="submit" type="submit">
         </div>
         <div id="footer">
