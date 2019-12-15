@@ -66,6 +66,47 @@ public class Film_DAO {
         }
         return this.data;
     }
+
+    /**
+     * Sprawdza czy baza danych zawiera już to ID
+     * 
+     * @param id - id do sprawdzenia
+     * @return boolean - czy baza zawiera dane ID
+     */
+    public boolean contains(Long id) {
+        boolean czyZawiera = false;
+        for (Film film : data) {
+            if (film.getID() == id) {
+                czyZawiera = true;
+            }
+        }
+        return czyZawiera;
+    }
+    
+    /**
+     * Sprawdza czy baza danych zawiera już film z tym tytułem
+     * 
+     * @param tytul - tytul do sprawdzenia
+     * @return boolean - czy baza zawiera dany tytul
+     */
+    public boolean contains(String tytul) {
+        boolean czyZawiera = false;
+        for (Film film : data) {
+            if (film.getTytul().equals(tytul)) {
+                czyZawiera = true;
+            }
+        }
+        return czyZawiera;
+    }
+    /**
+     * Zwraca następne wole ID dla filmu
+     * 
+     * @return Long - następne id
+     */
+    public Long getNextID() {
+        return new Long(data.size() + 1);
+    }
+
     /**
      * Zapisuje całą bazę danych do plików
      */
@@ -107,5 +148,6 @@ public class Film_DAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.data.add(film);//dodaj film do aktualnie przechowywanej bazy danych
     }
 }

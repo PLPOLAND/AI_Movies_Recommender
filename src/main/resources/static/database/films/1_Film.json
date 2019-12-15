@@ -1,7 +1,7 @@
 {
   "id" : 1,
-  "tytul" : "Avatar",
-  "zdjecie" : "/img/avatar.png",
-  "gatunek" : "Sci-Fi",
-  "rokProdukcji" : 1990
+  "tytul" : "#RealityHigh",
+  "zdjecie" : "https://assets.upflix.pl/media/plakat/2017/realityhigh__300_427.jpg",
+  "gatunek" : "Komedia",
+  "rokProdukcji" : 2017
 }

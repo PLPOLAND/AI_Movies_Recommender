@@ -1,7 +1,7 @@
 {
   "id" : 2,
-  "tytul" : "Mars",
-  "zdjecie" : "/img/mars.png",
-  "gatunek" : "Sci-Fi",
-  "rokProdukcji" : 1980
+  "tytul" : "#Rucker50",
+  "zdjecie" : "https://assets.upflix.pl/media/plakat/2016/rucker50__300_427.jpg",
+  "gatunek" : "Dokumentalny , Sport",
+  "rokProdukcji" : 2016
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import AI.MoviesRecommender.DAO.Film_DAO;
@@ -36,4 +37,22 @@ public class RESTController {
         System.out.println(filmDatabase.getDatabase());
         return filmDatabase.getDatabase();
     }
+    @RequestMapping("/createFilm")
+    public boolean createFilm(@RequestParam("tytul") String tytul, @RequestParam("zdjecie") String zdjecie, @RequestParam("gatunek") String gatunek, @RequestParam("rok") int rok) {
+        if (filmDatabase.contains(tytul)) {
+            return false;//Poinformuj o niepowodzeniu
+        } else {
+            Film film = new Film();
+            film.setID(filmDatabase.getNextID());
+            film.setZdjecie(zdjecie);
+            film.setRokProdukcji(rok);
+            film.setGatunek(gatunek);
+            film.setTytul(tytul);
+            filmDatabase.save(film);
+            return true;//Poinformuj o powodzeniu
+        }
+    }
+    // public String tmp(@RequestParam("tytul") String tytul,@RequestParam("zdjecie") String zdjecie){
+    //     return tytul + " " + zdjecie;
+    // }
 }

@@ -93,7 +93,7 @@ public class User_DAO {
     }
     /**
      * Zwraca następne wole ID dla usera
-     * @return
+     * @return Long - następne id
      */
     public Long getNextID() {
         return new Long(data.size()+1);

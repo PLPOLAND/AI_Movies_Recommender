@@ -25,4 +25,8 @@ public class MainController {
 		//generator.generateUsers(5); // generowanie 5 userów
 		return "mainpage";
 	}
+	@RequestMapping("/filmMaker")
+	public String filmMaker(){
+		return "filmcreator";
+	}
 }
