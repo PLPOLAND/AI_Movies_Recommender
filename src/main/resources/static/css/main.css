@@ -1,0 +1,258 @@
+:root{
+    --banner-data-space: 50px;
+    --banner-data-space-margin: 5px;
+    --banner-height: calc(50px + var(--banner-data-space) + ( 2 * var(--banner-data-space-margin)));
+    --banner-menu-line-height: 50px;
+    --footer-height: 50px;
+
+    --main-color: #F29F05; 
+    --hover-color: #D96704;
+    --mainbody-color: #ffffff00;
+    --mainbody-font-color: #ffffff;
+    --background-color: #ffffff;
+    --background-gradient-color:#000000C0;
+    --footer-color: #111111;
+    --footer-text-color: #FFFFFF;
+    --link-color: #591202;
+    --background-img: url(../img/wallhaven-4lpgpl.png);
+    --a-link-color: #591202;
+    --a-hover-color: #F2CB05;
+    --banner-color: #1f150463;
+    --menu-link-color: #ffffff;
+    --menu-background-color: var(--banner-color);
+    --menu-position-border-right-color: #D96704;
+    --menu-position-hover-background-color: #D96704;
+
+    font-family: 'Barlow','Franklin Gothic Medium', 'Arial Narrow', 'Arial', sans-serif;
+    
+}
+
+#backgroundContainer{
+    background-color: var(--background-color);
+    background-attachment: fixed;
+    background-size: cover;
+    filter: blur(10px);
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+}
+
+.nohover:hover{
+    background-color: #00000000 !important;
+}
+
+#backgroundContainer{
+    position: fixed;
+    display: block;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    top: 0px;
+    left: 0px;
+    background-image: linear-gradient(var(--background-gradient-color), var(--background-gradient-color) ), var(--background-img);
+}
+.container{
+    margin: 0;
+    padding: 0;
+}
+
+#logo{
+    position: absolute;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1;
+}
+#banner{
+    display: block;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: var(--banner-height);
+    background-color: var(--banner-color);
+    padding-left: calc(10% - 15px);
+    padding-right: calc(10% - 15px);
+}
+#BannerDataSpace{
+    display: block;
+    height: calc(var(--banner-data-space));
+    width: calc(100% - ( calc(10% - 15px) * 2) - 10px );
+    line-height: calc(var(--banner-data-space) - 10px );
+    padding: var(--banner-data-space-margin);
+    color: #ffffff;
+}
+img.pagelogo{
+    display: block;
+    height: var(--banner-data-space);
+    width: var(--banner-data-space);
+    cursor: pointer;
+}
+.userlogo{
+    position: relative;
+    float: left;
+}
+.userlogo:hover .cover{
+    /* top: 0; */
+    opacity: 1;
+    height: calc(var(--banner-data-space) - 10px );
+    width: calc(var(--banner-data-space) - 10px );
+    transform: scale(1);
+}
+.cover{
+    position: absolute;
+    opacity: 0;
+    top: 0px;
+    left: 0;
+    right: 0;
+    height: calc(var(--banner-data-space) - 10px );
+    width: calc(var(--banner-data-space) - 10px );
+    background-color: var(--hover-color);
+    overflow: hidden;
+    border-radius: 2em;
+    text-align: center;
+    transform: scale(0);
+    transform-origin: center center;
+    transition: .2s;
+    cursor: pointer;
+}
+img.userlogoimg {
+    display: block;
+    height: calc(var(--banner-data-space) - 10px );
+    width: calc(var(--banner-data-space) - 10px );
+    border-radius: 2em;
+    float: left;
+    cursor: pointer;
+}
+.userdata{
+    padding: 5px;
+    width: auto;
+    height: calc(var(--banner-data-space) - 10px );
+}
+.userdata > .banner-icons-etc{
+    display: none;
+    height: 100%;
+    font-size: 30px;
+    float: right;
+    margin-left: 5px;
+    cursor: default;
+
+}
+.banner-icons-etc span{
+    font-size: 20px;
+}
+.icon:hover{
+    cursor: pointer;
+    color: var(--hover-color);
+    transition: 0.2s;
+}
+.icon.logout:hover{
+    color: #FF1111;
+    transition: 0.2s;
+}
+#banner .menu{
+    display: block;
+    height: var(--banner-menu-line-height);
+}
+#banner .menu a{
+    line-height: calc( var(--banner-menu-line-height) - 30px )!important;
+}
+
+.left{
+    float: left;
+    margin: 0;
+}
+.right{
+    float: right;
+    margin: 0;
+}
+
+#mainbody{
+    display: block;
+    min-height: calc(100vh - var(--banner-height) - var(--footer-height));
+    height: 100%;
+    width: 80%;
+    margin-top: var(--banner-height);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color:  var(--mainbody-color);
+}
+
+#footer{
+    display: block;
+    width: 100%;
+    height: var(--footer-height);
+    background-color: var(--footer-color);
+    line-height: calc(var(--footer-height)/2);
+    color:  #c7c7c7;
+    text-align: center;
+    
+}
+
+a,a:link, a:visited{
+    color: var(--a-link-color);
+}
+
+a:hover{
+    color: var(--a-hover-color);
+}
+
+.menu{
+    width: calc(80% + 30px);
+}
+.menu ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.menu ul > li {
+    width: auto;
+    flex: 1;
+}
+.menu ul > li > ul {
+    visibility: hidden;
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    transform: scaleY(0);
+    transition-duration: 0ms;
+    transform-origin: 50% 0;
+}
+.menu ul > li > ul li{
+    width: 100%;
+}
+.menu ul > li:hover > ul{
+    display: flex;
+    flex-direction: column;
+    
+    visibility: visible;
+    position: relative;
+    transition-delay: 100ms;
+    transition-duration: 250ms;
+    transform: scaleY(1);
+}
+.menu a{
+    text-transform: uppercase;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    line-height: calc(var(--banner-height) - 30px);
+    color:#ffffff;
+    text-align: center;
+}
+.menu a:hover{
+    background-color: var(--menu-position-hover-background-color);
+}
+.menu .drop-down li > a{
+    background-color: var(--menu-background-color);
+}
+.menu .drop-down li > a:hover{
+    background-color: var(--menu-position-hover-background-color);
+}
