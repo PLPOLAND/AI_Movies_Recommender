@@ -41,6 +41,18 @@
       "css": "credit-card",
       "code": 59397,
       "src": "typicons"
+    },
+    {
+      "uid": "7ad4d2306ebda8452e5e3eff3cd8241c",
+      "css": "like",
+      "code": 59398,
+      "src": "entypo"
+    },
+    {
+      "uid": "429fba993b729174468a9493613ad1ba",
+      "css": "dislike",
+      "code": 59399,
+      "src": "entypo"
     }
   ]
 }

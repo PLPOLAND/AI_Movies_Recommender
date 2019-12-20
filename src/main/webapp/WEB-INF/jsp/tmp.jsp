@@ -13,6 +13,8 @@
     <c:url value="/css/films.css" var="filmy" />
     <c:url value="/js/main.js" var="javaScript" />
     <c:url value="/img/icon.png" var="icon" />
+    <c:url value="/css/fontello.css" var="fontello" />
+    <link href="${fontello}" rel="stylesheet" />
     <link href="${jstlCss}" rel="stylesheet" />
     <link href="${filmy}" rel="stylesheet" />
     <link href="${icon}" rel="shortcut icon">
@@ -31,8 +33,16 @@
         <div id="mainbody">
             <div class="film">
                 <div class="film-img" style="background-image: url(https://assets.upflix.pl/media/plakat/2017/realityhigh__300_427.jpg)">
+                    <div class="ocena">
+                        <div class="ocena-icon">
+                            <i class="icon icon-like"></i>
+                        </div>
+                        <div class="ocena-icon">
+                            <i class="icon icon-dislike"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="film-title">
+                <!-- <div class="film-title">
                     Avatar
                 </div>
                 <div class="film-gatunek">
@@ -40,7 +50,7 @@
                 </div>
                 <div class="film-rok">
                     1998
-                </div>
+                </div> -->
             </div>
         </div>
         <div id="footer">

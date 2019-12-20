@@ -1,27 +1,79 @@
 :root{
-    --film-height: 200px;
+    --film-height: 213.5px;
     --film-width : 150px;
+}
+#mainbody{
+
+    display: flex !important;
+    flex-wrap: wrap;
+    align-content: space-around;
+    color: #eeeeee;
 }
 .film{
     display: block;
-    background-color: #ffffff;
-    height: var(--film-height);
-    width: var(--film-width);
+    flex: 1;
+    background-color: #111111;
+    max-height: var(--film-height);
+    min-width: var(--film-width);
+    max-width: var(--film-width);
+    margin: 10px;
 }
 .film-img{
-    height: calc(var(--film-height) / 1.2);
+    /* height: calc(var(--film-height) / 1.3);  */ /* Dla okładki z podpisem*/
+    height: var(--film-height);  /*Dla okładki z podpisem */
     background-size: cover;
 }
 .film-title{
-    height: calc(100% - var(--film-height) / 1.2);
+    height: calc( ( ( 100% - var(--film-height) / 1.3 ) / 2 ) - 2 );
     font-size: 25px;
+    padding: 2px;
+    text-align: center;
 }
 .film > .film-gatunek{
     display: block;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    height: calc( ( 100% - var(--film-height) / 1.3 ) / 2 - 2);
+    line-height: 150%;
+    position: relative;
+    bottom: 0px;
+    float: right;
+    padding: 2px;
 }
 .film-rok{
+    display: block;
+    height: calc( ( 100% - var(--film-height) / 1.3 ) / 2 - 2);
+    line-height: 150%;
+    float: left;
+    padding: 2px;
+}
+.ocena{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #00000080;
+}
 
+.ocena-icon{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    height: 42.5%;
+    width: 90%;
+    font-size: 40px;
+    text-align: center;
+    padding: 5%;
+}
+.ocena .icon{
+
+}
+.ocena .icon-like:hover{
+    color: #00ff00;
+}
+.ocena .icon-dislike:hover{
+    color: #ff0000;
 }

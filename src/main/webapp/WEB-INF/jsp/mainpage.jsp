@@ -12,8 +12,10 @@
     <c:url value="/css/main.css" var="jstlCss" />
     <c:url value="/js/main.js" var="javaScript" />
     <c:url value="/img/icon.png" var="icon" />
+    <c:url value="/css/films.css" var="filmy" />
     <c:url value="/css/fontello.css" var="fontello" />
     <link href="${fontello}" rel="stylesheet" />
+    <link href="${filmy}" rel="stylesheet" />
     <link href="${jstlCss}" rel="stylesheet" />
     <link href="${icon}" rel="shortcut icon">
     <link href='http://fonts.googleapis.com/css?family=Barlow&subset=latin,latin-ext' rel='stylesheet' type='text/css'>

@@ -5,3 +5,5 @@
 .icon-trash:before { content: '\e803'; } /* '' */
 .icon-conf:before { content: '\e804'; } /* '' */
 .icon-credit-card:before { content: '\e805'; } /* '' */
+.icon-like:before { content: '\e806'; } /* '' */
+.icon-dislike:before { content: '\e807'; } /* '' */
