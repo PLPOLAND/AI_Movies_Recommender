@@ -1,0 +1,27 @@
+:root{
+    --film-height: 200px;
+    --film-width : 150px;
+}
+.film{
+    display: block;
+    background-color: #ffffff;
+    height: var(--film-height);
+    width: var(--film-width);
+}
+.film-img{
+    height: calc(var(--film-height) / 1.2);
+    background-size: cover;
+}
+.film-title{
+    height: calc(100% - var(--film-height) / 1.2);
+    font-size: 25px;
+}
+.film > .film-gatunek{
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.film-rok{
+
+}

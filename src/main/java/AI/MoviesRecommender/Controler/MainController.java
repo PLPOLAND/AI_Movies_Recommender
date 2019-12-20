@@ -64,4 +64,9 @@ public class MainController {
 		security.logout();
 		return "redirect:/login";
 	}
+
+	@RequestMapping("/tmp")
+	public String tmp() {
+		return "tmp";
+	}
 }
