@@ -4,7 +4,7 @@
   "nazwisko" : "Pałdyna",
   "nick" : "PLPOLAND",
   "pass" : "xxx",
-  "polubione" : [1,2,3,4],
-  "nielubione" : [ ],
+  "polubione" : [ 1, 2, 3, 4 ],
+  "nielubione" : [ 5 ],
   "id" : 2
 }

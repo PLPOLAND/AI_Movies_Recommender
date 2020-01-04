@@ -1,6 +1,5 @@
 package AI.MoviesRecommender.Controler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,11 +37,7 @@ public class RESTController {
             return false;
         }
     }
-    
-    @RequestMapping("/tmp")
-    public User tmp(){
-        return new User(1L,"Marek","Marek@paldyna.pl","Pałdyna","Kozak","xxx", new ArrayList<Long>(), new ArrayList<Long>());
-    }
+
     @RequestMapping("/allu")
     public List<User> getallusers(){
         return userDatabase.getDatabase();
@@ -66,6 +61,42 @@ public class RESTController {
             filmDatabase.save(film);
             return true;//Poinformuj o powodzeniu
         }
+    }
+    @RequestMapping("/likeFilm")
+    public boolean likeFilm(@RequestParam("idF") Long idF, HttpServletRequest request){
+        Security security = new Security(request, userDatabase);
+        User user = security.getFullUserData();
+        if (user.getPolubione().contains(idF) && !user.getNielubione().contains(idF)) {
+            userDatabase.delLikeFilm(user, idF);
+            return false;
+        }
+        else if(!user.getPolubione().contains(idF) && user.getNielubione().contains(idF)){
+            userDatabase.likeFilm(user, idF);
+            userDatabase.delUnLikeFilm(user,idF);
+        }
+        else{
+            userDatabase.likeFilm(user, idF);
+        }
+        return true;
+    }
+
+    @RequestMapping("unLikeFilm")
+    public boolean unLikeFilm(@RequestParam("idF") Long idF, HttpServletRequest request) {
+        Security security = new Security(request, userDatabase);
+        User user = security.getFullUserData();
+
+        if (user.getNielubione().contains(idF) && !user.getPolubione().contains(idF)) {
+            userDatabase.delUnLikeFilm(user, idF);
+            return false;
+        } 
+        else if(!user.getNielubione().contains(idF) && user.getPolubione().contains(idF)){
+            userDatabase.delLikeFilm(user, idF);
+            userDatabase.UnLikeFilm(user, idF);
+        }
+        else {
+            userDatabase.UnLikeFilm(user, idF);
+        }
+        return true;
     }
     // public String tmp(@RequestParam("tytul") String tytul,@RequestParam("zdjecie") String zdjecie){
     //     return tytul + " " + zdjecie;
