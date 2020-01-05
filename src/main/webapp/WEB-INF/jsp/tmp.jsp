@@ -35,10 +35,10 @@
                 <div class="film-img" style="background-image: url(https://assets.upflix.pl/media/plakat/2017/realityhigh__300_427.jpg)">
                     <div class="ocena">
                         <div class="ocena-icon">
-                            <i class="icon icon-like"></i>
+                            <i class="icon icon-like" onclick="likeFilm(1,this)"></i>
                         </div>
                         <div class="ocena-icon">
-                            <i class="icon icon-dislike"></i>
+                            <i class="icon icon-dislike" onclick="unLikeFilm(1,this)"></i>
                         </div>
                     </div>
                 </div>

@@ -42,11 +42,24 @@ public class RESTController {
     public List<User> getallusers(){
         return userDatabase.getDatabase();
     }
+    
     @RequestMapping("/allf")
     public List<Film> getallfilms(){
         System.out.println(filmDatabase.getDatabase());
         return filmDatabase.getDatabase();
     }
+
+    @RequestMapping("/getUnliked")
+    public List<Long> getUnlikedForUser(HttpServletRequest request) {
+        Security security = new Security(request, userDatabase);
+        return security.getFullUserData().getNielubione();
+    }
+    @RequestMapping("/getLiked")
+    public List<Long> getLikedForUser(HttpServletRequest request) {
+        Security security = new Security(request, userDatabase);
+        return security.getFullUserData().getPolubione();
+    }
+
     @RequestMapping("/createFilm")
     public boolean createFilm(@RequestParam("tytul") String tytul, @RequestParam("zdjecie") String zdjecie, @RequestParam("gatunek") String gatunek, @RequestParam("rok") int rok) {
         if (filmDatabase.contains(tytul)) {
@@ -62,13 +75,14 @@ public class RESTController {
             return true;//Poinformuj o powodzeniu
         }
     }
+    
     @RequestMapping("/likeFilm")
     public boolean likeFilm(@RequestParam("idF") Long idF, HttpServletRequest request){
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
         if (user.getPolubione().contains(idF) && !user.getNielubione().contains(idF)) {
             userDatabase.delLikeFilm(user, idF);
-            return false;
+            return false; // Zwróć informację o tym że film nie istnieje w polubionych
         }
         else if(!user.getPolubione().contains(idF) && user.getNielubione().contains(idF)){
             userDatabase.likeFilm(user, idF);
@@ -77,7 +91,7 @@ public class RESTController {
         else{
             userDatabase.likeFilm(user, idF);
         }
-        return true;
+        return true; //Zwróć informację o tym że film istnieje w polubionych
     }
 
     @RequestMapping("unLikeFilm")
@@ -87,7 +101,7 @@ public class RESTController {
 
         if (user.getNielubione().contains(idF) && !user.getPolubione().contains(idF)) {
             userDatabase.delUnLikeFilm(user, idF);
-            return false;
+            return false;// Zwróć informację o tym że film nie istnieje w niepolubionych
         } 
         else if(!user.getNielubione().contains(idF) && user.getPolubione().contains(idF)){
             userDatabase.delLikeFilm(user, idF);
@@ -96,9 +110,7 @@ public class RESTController {
         else {
             userDatabase.UnLikeFilm(user, idF);
         }
-        return true;
+        return true;// Zwróć informację o tym że film istnieje w niepolubionych
     }
-    // public String tmp(@RequestParam("tytul") String tytul,@RequestParam("zdjecie") String zdjecie){
-    //     return tytul + " " + zdjecie;
-    // }
+   
 }
