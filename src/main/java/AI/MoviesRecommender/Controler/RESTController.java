@@ -27,6 +27,11 @@ public class RESTController {
     Film_DAO filmDatabase;
 
 
+    @RequestMapping("/register")
+    public boolean register(HttpServletRequest request){
+        return false;
+    }
+
     @RequestMapping("/login")
     public boolean login(HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
