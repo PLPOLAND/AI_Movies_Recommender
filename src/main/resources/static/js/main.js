@@ -48,31 +48,35 @@ function seefilms() {
                 );
                 $('.ocena').fadeOut(0);
             });
-
-            // var msg = "";
-            // if (response == 1) {
-            //     window.location = "/";
-            // } else {
-            //     msg = "Podano błędny login lub hasło";
-            //     $("#err-msg").html(msg);
-            //     $("#err-msg").show('slow');
-            // }
-
-        }
-    });
-
-    $.ajax({
-        url: '/api/getUnliked',
-        type: 'post',
-        data: {},
-        success: function (response) {
-            response.forEach(element => {
-                console.log($("#f" + element).children());
-                
+            //Kolorownie nie polubionych
+            $.ajax({
+                url: '/api/getUnliked',
+                    type: 'post',
+                        data: { },
+                success: function (response) {
+                    response.forEach(element => {
+                        var text = '#f' + element;
+                        $($(text).children().children().children().get(1)).addClass('unliked');
+                    });
+                }
             });
+            //Kolorownie polubionych
+            $.ajax({
+                url: '/api/getLiked',
+                type: 'post',
+                data: {},
+                success: function (response) {
+                    response.forEach(element => {
+                        var text = '#f' + element;
+                        $($(text).children().children().children().get(0)).addClass('liked');
+                    });
+                }
+            });
+
         }
     });
 
+    
 }
 
 function likeFilm(idF, pole) {
@@ -82,12 +86,11 @@ function likeFilm(idF, pole) {
         data: { idF: idF },
         success: function (response) {
             if (response == true) {
-                $(pole).addClass('liked');
-                
-                $($(pole).parent().parent().children().children().get(1)).removeClass('unliked');
+                $(pole).parent().addClass('liked');
+                $($(pole).parent().parent().children().get(1)).removeClass('unliked');
             }
             else if(response == false){
-                $(pole).removeClass('liked');
+                $(pole).parent().removeClass('liked');
             }
         }
     });
@@ -100,11 +103,11 @@ function unLikeFilm(idF, pole) {
         data: { idF: idF },
         success: function (response) {
             if (response == true) {
-                $(pole).addClass('unliked');
-                $($(pole).parent().parent().children().children().get(0)).removeClass('liked');
+                $(pole).parent().addClass('unliked');
+                $($(pole).parent().parent().children().get(0)).removeClass('liked');
             }
             else if (response == false) {
-                $(pole).removeClass('unliked');
+                $(pole).parent().removeClass('unliked');
             }
         }
     });

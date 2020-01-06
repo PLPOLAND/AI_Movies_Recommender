@@ -45,7 +45,7 @@ public class RESTController {
     
     @RequestMapping("/allf")
     public List<Film> getallfilms(){
-        System.out.println(filmDatabase.getDatabase());
+        //System.out.println(filmDatabase.getDatabase());
         return filmDatabase.getDatabase();
     }
 
