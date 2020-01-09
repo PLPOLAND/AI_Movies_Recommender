@@ -49,6 +49,13 @@ public class MainController {
 	}
 
 	/**
+	 * Strona z rejestracją
+	 */
+	@RequestMapping("/register")
+	public String register(){
+		return "register";
+	}
+	/**
 	 * Strona logowania
 	 */
 	@RequestMapping("/login")

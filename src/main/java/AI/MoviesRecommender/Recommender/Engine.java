@@ -1,6 +1,5 @@
 package AI.MoviesRecommender.Recommender;
 
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,5 +142,21 @@ public class Engine {
          }
 
          return films;
+     }
+
+     public float getPercantageAccuracy(Long film_ID, List<User> similar_users)
+     {
+        int liked = 0, disliked = 0;
+
+        for(User i:similar_users)
+        {
+            if(i.getPolubione().contains(film_ID))
+                liked++;
+            else if(i.getNielubione().contains(film_ID))
+                disliked++;
+        }
+
+        float percentage = (float)liked / (float)(liked + disliked);
+        return percentage;
      }
  }
