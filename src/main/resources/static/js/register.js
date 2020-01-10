@@ -8,8 +8,7 @@ $(document).ready(function () {
         var useremail = $("#email").val();
         var userconfemail = $("#confemail").val();
 
-        if (nickname != "" && username != "" && userlastname != "" && password != "" &&
-            confpassword != "" && useremail !="" && userconfemail != "" && password == confpassword && email == confemail) {
+        if (nickname != "" && username != "" && userlastname != "" && password != "" && confpassword != "" && useremail != "" && userconfemail != "" && password == confpassword && useremail == userconfemail) {
             $.ajax({
                 url: '/api/register',
                 type: 'get',
@@ -34,8 +33,8 @@ $(document).ready(function () {
         {
             if(password != confpassword)
                 $("#confpass").css("background-color", "#FF0000");
-            if(email != confemail)
-                $("confemail").css("background-color", "#FF0000");
+            if (useremail != userconfemail)
+                $("#confemail").css("background-color", "#FF0000");
         }
     });
     $(".container").click(function(){
