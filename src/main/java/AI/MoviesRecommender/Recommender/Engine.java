@@ -157,6 +157,6 @@ public class Engine {
         }
 
         float percentage = (float)liked / (float)(liked + disliked);
-        return percentage;
+        return percentage * 100;
      }
  }

@@ -9,9 +9,11 @@
 <html lang="pl">
 
 <head>
+    <c:url value="/css/filmview.css" var="film" />
     <c:url value="/css/main.css" var="jstlCss" />
     <c:url value="/js/main.js" var="javaScript" />
     <c:url value="/img/icon.png" var="icon" />
+    <link href="${film}" rel="stylesheet" />
     <link href="${jstlCss}" rel="stylesheet" />
     <link href="${icon}" rel="shortcut icon">
     <link href='http://fonts.googleapis.com/css?family=Barlow&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -28,8 +30,18 @@
         </div>
         <div id="mainbody">
             <div id="movie">
-                ${f.getTytul()}<br/>
-                ${f.getZdjecie()}
+                <div id="film-data">
+                    <span id="film-title">${f.getTytul()}</span><br/>
+                    <img src="${f.getZdjecie()}" alt="Image"><br/>
+                    
+                    <span class="film-description">Gatunek: ${f.getGatunek()}</span><br/>
+                    <span class="film-description">Rok produkcji: ${f.getRokProdukcji()}</span><br/>
+                </div>
+                
+                <div id="recommendation">
+                    <span id="accuracy">Trafność: ${eng.getPercantageAccuracy(f.getID(), eng.getSimilarUsers(1))}%</span><br/>
+                </div>
+                <div id="end"></div>
             </div>
         </div>
         <div id="footer">

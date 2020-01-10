@@ -1,0 +1,32 @@
+#film-title
+{
+    color: #2299FF;
+    font-size: 36px;
+}
+
+.film-description
+{
+    color: #33BBFF;
+    font-size: 24px;
+}
+
+#accuracy
+{
+    color: #DDDDFF;
+    font-size: 36px;
+}
+
+#film-data
+{
+    float: left;
+}
+
+#recommendation
+{
+    justify-content: center;
+}
+
+#end
+{
+    clear:both;
+}
