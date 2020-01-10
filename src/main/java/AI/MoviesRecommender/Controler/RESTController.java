@@ -39,7 +39,7 @@ public class RESTController {
         u.setPass(password);
         u.setEmail(email);
 
-        userDatabase.save(u);
+        /*boolean acomplished =*/userDatabase.save(u);
         userDatabase.getDatabase().add(u);
 
         return true;

@@ -21,7 +21,7 @@ public class Engine {
      final float similarity_treshold = 0.75f;
      final int similar_users_limit = 100;
 
-     Engine(List<User> users, List<Film> films)
+     public Engine(List<User> users, List<Film> films)
      {
         this.users = users;
         this.films = films;
