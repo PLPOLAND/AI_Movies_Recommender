@@ -178,35 +178,41 @@ public class User_DAO {
      * 
      * @param user - user do zapisania
      */
-    public void save(User user) {
-        try {
+    public boolean save(User user) {
+        if (user != null) { //TODO
+            try {
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-            File projFile = new File("src/main/resources/static/database/users/" + user.getID() + "_User.json");
-            projFile.createNewFile();// utworzenie pliku jeśli nie istnieje
-            objectMapper.writeValue(projFile, user);// plik projektu (src)
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+                File projFile = new File("src/main/resources/static/database/users/" + user.getID() + "_User.json");
+                projFile.createNewFile();// utworzenie pliku jeśli nie istnieje
+                objectMapper.writeValue(projFile, user);// plik projektu (src)
+            } catch (JsonGenerationException e) {
+                e.printStackTrace();
+            } catch (JsonMappingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+                File appFile = new File(TypeReference.class.getResource("/static/database/users/").getPath()
+                        + user.getID() + "_User.json");
+                appFile.createNewFile();// utworzenie pliku jeśli nie istnieje
+                objectMapper.writeValue(appFile, user);// plik aplikacji (target)
+            } catch (JsonGenerationException e) {
+                e.printStackTrace();
+            } catch (JsonMappingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
         }
-        try {
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-            File appFile = new File(
-                    TypeReference.class.getResource("/static/database/users/").getPath() + user.getID() + "_User.json");
-            appFile.createNewFile();// utworzenie pliku jeśli nie istnieje
-            objectMapper.writeValue(appFile, user);// plik aplikacji (target)
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        else{
+            return false;
         }
     }
 
