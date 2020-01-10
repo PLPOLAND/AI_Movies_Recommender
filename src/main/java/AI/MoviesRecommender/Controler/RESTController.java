@@ -28,8 +28,21 @@ public class RESTController {
 
 
     @RequestMapping("/register")
-    public boolean register(HttpServletRequest request){
-        return false;
+    public boolean register(HttpServletRequest request, @RequestParam("nick") String nick, @RequestParam("name") String name,
+                            @RequestParam("lastname") String lastname, @RequestParam("pass") String password, @RequestParam("email") String email)
+    {
+        User u = new User();
+        u.setID(userDatabase.getNextID());
+        u.setNick(nick);
+        u.setImie(name);
+        u.setNazwisko(lastname);
+        u.setPass(password);
+        u.setEmail(email);
+
+        userDatabase.save(u);
+        userDatabase.getDatabase().add(u);
+
+        return true;
     }
 
     @RequestMapping("/login")
