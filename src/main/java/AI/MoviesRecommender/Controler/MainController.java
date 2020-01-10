@@ -66,7 +66,7 @@ public class MainController {
 
 		Engine eng = new Engine(userDatabase.getDatabase(), filmDatabase.getDatabase());
 		Film f = eng.getFilm(film_ID);
-		model.addAttribute(f);
+		model.addAttribute("f", f);
 		System.out.println(f.toString());
 		System.out.println(film_ID);
 

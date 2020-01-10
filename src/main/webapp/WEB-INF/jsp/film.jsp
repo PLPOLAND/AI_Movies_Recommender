@@ -28,7 +28,7 @@
         </div>
         <div id="mainbody">
             <div id="movie">
-                ${f.getTytul()}
+                ${f.getTytul()}<br/>
                 ${f.getZdjecie()}
             </div>
         </div>
