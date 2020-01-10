@@ -39,7 +39,7 @@
                 </div>
                 
                 <div id="recommendation">
-                    <span id="accuracy">Trafność: ${eng.getPercantageAccuracy(f.getID(), eng.getSimilarUsers(1))}%</span><br/>
+                    <span id="accuracy"><br/>Trafność: ${eng.getPercantageAccuracy(f.getID(), eng.getSimilarUsers(uID))}%</span><br/>
                 </div>
                 <div id="end"></div>
             </div>

@@ -21,9 +21,9 @@
     float: left;
 }
 
-#recommendation
+#accuracy
 {
-    justify-content: center;
+    padding: 50px;
 }
 
 #end

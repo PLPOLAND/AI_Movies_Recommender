@@ -68,6 +68,7 @@ public class MainController {
 		Film f = eng.getFilm(film_ID);
 		model.addAttribute("f", f);
 		model.addAttribute("eng", eng);
+		model.addAttribute("uID", security.getUserID());
 
 		return "film";
 	}
