@@ -55,6 +55,18 @@ public class MainController {
 	public String register(){
 		return "register";
 	}
+
+	@RequestMapping("/firstpage")
+	public String firstpage(Model model, HttpServletRequest request) {
+		Security security = new Security(request, userDatabase);
+		if (!security.isLoged())
+			return "redirect:/login";
+		Banner banner = new Banner(new Menu(), security.getFullUserData());
+		model.addAttribute(banner);
+		return "firstpage";
+	}
+
+
 	/**
 	 * Strona logowania
 	 */

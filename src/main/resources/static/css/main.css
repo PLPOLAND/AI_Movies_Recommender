@@ -256,3 +256,16 @@ a:hover{
 .menu .drop-down li > a:hover{
     background-color: var(--menu-position-hover-background-color);
 }
+
+.show{
+    display: none;
+    right: 5px;
+    bottom: 5px;
+    width: 100px;
+    height: 20px;
+    background-color: #111111;
+}
+.show :hover{
+    
+    background-color: #44444444;
+}
