@@ -83,26 +83,33 @@ public class Engine {
         {
             if(ID != i.getID())
             {
-                if(getUsersSimilarity(ID, i.getID()) >= similarity_treshold)
-                    similar.add(i);
+                float u_similarity = getUsersSimilarity(ID, i.getID());
+                if(u_similarity >= similarity_treshold)
+                {
+                    if(similar.size() >= 100)
+                    {
+                        float min_similarity = 1.f;
+                        User worst_user = users.get(0);
+                        for(User j:similar)
+                        {
+                            float new_minsimilarity = getUsersSimilarity(j.getID(), ID);
+                            if(new_minsimilarity < min_similarity)
+                            {
+                                min_similarity = new_minsimilarity;
+                                worst_user = j;
+                            }
+                        }
+                        if(u_similarity > min_similarity)
+                        {
+                            similar.remove(worst_user);
+                            similar.add(i);
+                        }  
+                    }
+                    else
+                        similar.add(i);
+                }
             }
         }
-
-        // while(similar.size() > similar_users_limit)
-        // {
-        //     float min_similarity = 1.f;
-        //     int index = 0;
-        //     for(User i:similar)
-        //     {
-        //         float user_similarity = getUsersSimilarity(ID, i.getID());
-        //         if(user_similarity < min_similarity)
-        //         {
-        //             min_similarity = user_similarity;
-        //             index = users.indexOf(i);
-        //         }
-        //     }
-        //    // users.remove(index);
-        // }
 
         return similar;
      }
