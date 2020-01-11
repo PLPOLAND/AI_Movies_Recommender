@@ -1,17 +1,27 @@
+var liked = 0;
+
 $(document).ready(function () {
     seefilms();
-    $(".icon").click(function(){
-        console.log(liked);
-        if(liked>=4){
-            $(".show").css("display","fixed");
+    // $(".icon").click(function(){
+    //     console.log(liked);
+    //     if(liked>=1){
+    //         $(".show").css("display","block");
+    //     }
+    //     else{
+    //         $(".show").css("display", "none");
+    //     }
+    // });
+    window.setInterval(function () {
+        if (liked >= 4) {
+            $(".show").css("display", "block");
+            $(".show").html("Pokaż proponowane");
         }
-        else{
+        else {
             $(".show").css("display", "none");
         }
-    });
+    },500);
 });
 
-var liked = 0;
 
 
 function seefilms() {
@@ -68,14 +78,7 @@ function seefilms() {
                     });
                 }
             });
-            $(".icon").on("click",function () {
-                if (liked >= 4) {
-                    $(".show").css("display", "fixed");
-                }
-                else {
-                    $(".show").css("display", "none");
-                }
-            });
+           
         }
     });
 
@@ -91,11 +94,11 @@ function likeFilm(idF, pole) {
             if (response == true) {
                 $(pole).parent().addClass('liked');
                 $($(pole).parent().parent().children().get(1)).removeClass('unliked');
-                liked++;
+                liked = liked + 1;
             }
             else if (response == false) {
                 $(pole).parent().removeClass('liked');
-                liked--;
+                liked = liked - 1;
             }
         }
     });

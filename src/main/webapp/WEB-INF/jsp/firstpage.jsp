@@ -35,7 +35,7 @@
             ${banner.printBanner()}
         </div>
         <div id="mainbody">
-            <div class="show"></div>
+            <a href="/proponowane"><div class="show"></div></a>
         </div>
         <div id="footer">
             © Wszelkie prawa zastrzeżone
