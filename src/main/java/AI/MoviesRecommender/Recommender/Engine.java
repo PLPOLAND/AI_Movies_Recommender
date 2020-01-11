@@ -107,38 +107,27 @@ public class Engine {
 
      public List<Long> getRecommendedFilms(User main_user, List<User> similar_users)
      {
-         int highest_ID = 0;
+         //int highest_ID = 0;
+         List<Long> all_liked = new ArrayList<Long>();
          for(User i:similar_users)
          {
              for(Long j:i.getPolubione())
              {
-                if(j > highest_ID)
-                    highest_ID = j.intValue();
-             }
-         }
-
-         int [] recommended = new int[highest_ID];
-         for(int i =0;i<highest_ID;i++)
-            recommended[i] = 0;
-
-         for(User i:similar_users)
-         {
-             for(Long j:i.getPolubione())
-             {
-                recommended[j.intValue()]++;
-             }
-             for(Long j:i.getNielubione())
-             {
-                if(j < highest_ID)
-                   recommended[j.intValue()]--;
+                if(!all_liked.contains(j))
+                    all_liked.add(j);
              }
          }
 
          List<Long> films = new ArrayList<Long>();
-         for(int i=0;i<highest_ID;i++)
+         List<Float> percentages = new ArrayList<Float>();
+         for(Long i:all_liked)
          {
-             if(recommended[i] > 0)
-                films.add((long)i);
+             Float perc = getPercantageAccuracy(i, similar_users);
+             if(perc >= 50.f)
+             {
+                films.add(i);
+                percentages.add(perc);
+             }
          }
 
          return films;
