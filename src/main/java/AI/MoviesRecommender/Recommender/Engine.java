@@ -69,8 +69,10 @@ public class Engine {
                 opposite_rating++;
         }
 
-        float similarity_precantage = (float)same_rating / (float)same_rating+opposite_rating;
+        if(same_rating == 0L && opposite_rating == 0L)
+            return 0.f;
 
+        float similarity_precantage = (float)same_rating / (float)(same_rating+opposite_rating);
         return similarity_precantage;
      }
 
@@ -107,7 +109,6 @@ public class Engine {
 
      public List<Long> getRecommendedFilms(User main_user, List<User> similar_users)
      {
-         //int highest_ID = 0;
          List<Long> all_liked = new ArrayList<Long>();
          for(User i:similar_users)
          {
