@@ -1,30 +1,13 @@
 $(document).ready(function () {
-    $('.banner-icons-etc').hide();
-    $('.cover').click(function () {//pokazywanie/chowanie rozwijanego banneru w banerze
-        $('.banner-icons-etc').toggle('slow');
-    });
-    $(".film").hover(
-        function () {
-            $('.ocena', this).fadeIn("fast")
-        },
-        function () {
-            $('.ocena', this).fadeOut("fast");
-        }
-    );
-    $('.ocena').fadeOut(0);
-
-    if (window.location.pathname == "/") {
-        seefilms();
-    }
+    seefilms()
 });
-
 function seefilms() {
     $.ajax({
-        url: '/api/allf',
+        url: '/api/recommended',
         type: 'post',
         data: {},
         success: function (response) {
-            response.forEach( element => {
+            response.forEach(element => {
                 var pos = $('<div class="film" id="f' + element.id + '">' +
                     '<div class= "film-img" style = "background-image: url(' + element.zdjecie + ')" >' +
                     '<div class="ocena">' +
@@ -32,7 +15,7 @@ function seefilms() {
                     '<i class="icon icon-like" onclick="likeFilm(' + element.id + ',this)"></i>' +
                     '</div>' +
                     '<div class="ocena-icon">' +
-                    '<i class="icon icon-dislike" onclick="unLikeFilm(' + element.id + ',this)"></i>' +
+                    '<i class="icon icon-dislike" onclick="unLikeFilm(' + element.id + ',this)"></i>' + 
                     '</div>' +
                     '<div class="ocena-icon">' +
                     '<i class="icon icon-list" onclick="info(' + element.id + ')"></i>' +
@@ -55,8 +38,8 @@ function seefilms() {
             //Kolorownie nie polubionych
             $.ajax({
                 url: '/api/getUnliked',
-                    type: 'post',
-                        data: { },
+                type: 'post',
+                data: {},
                 success: function (response) {
                     response.forEach(element => {
                         var text = '#f' + element;
@@ -80,7 +63,7 @@ function seefilms() {
         }
     });
 
-    
+
 }
 
 function likeFilm(idF, pole) {
@@ -93,7 +76,7 @@ function likeFilm(idF, pole) {
                 $(pole).parent().addClass('liked');
                 $($(pole).parent().parent().children().get(1)).removeClass('unliked');
             }
-            else if(response == false){
+            else if (response == false) {
                 $(pole).parent().removeClass('liked');
             }
         }
@@ -117,5 +100,5 @@ function unLikeFilm(idF, pole) {
     });
 }
 function info(idF) {
-    window.location = '/film?ID=' + idF;
+    window.location = '/film?ID='+idF;
 }

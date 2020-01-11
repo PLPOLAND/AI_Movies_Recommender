@@ -67,7 +67,8 @@ public class MainController {
 		Engine eng = new Engine(userDatabase.getDatabase(), filmDatabase.getDatabase());
 		Film f = eng.getFilm(film_ID);
 		model.addAttribute("f", f);
-		model.addAttribute("eng", eng);
+		float procent = eng.getPercantageAccuracy(f.getID(), eng.getSimilarUsers(security.getUserID()));
+		model.addAttribute("procent", procent);
 		model.addAttribute("uID", security.getUserID());
 
 		return "film";

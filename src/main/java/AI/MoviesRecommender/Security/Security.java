@@ -108,10 +108,10 @@ public class Security {
      * @version 1.0
      * @return Integer ID użytkownika
      */
-    public Integer getUserID() {
+    public Long getUserID() {
         if (isLoged()) {
             HttpSession session = request.getSession();
-            return (Integer) session.getAttribute("id");
+            return (Long) session.getAttribute("id");
         } else {
             return null;
         }

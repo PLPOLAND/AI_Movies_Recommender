@@ -88,28 +88,28 @@ public class Engine {
             }
         }
 
-        while(similar.size() > similar_users_limit)
-        {
-            float min_similarity = 1.f;
-            int index = 0;
-            for(User i:similar)
-            {
-                float user_similarity = getUsersSimilarity(ID, i.getID());
-                if(user_similarity < min_similarity)
-                {
-                    min_similarity = user_similarity;
-                    index = users.indexOf(i);
-                }
-            }
-            users.remove(index);
-        }
+        // while(similar.size() > similar_users_limit)
+        // {
+        //     float min_similarity = 1.f;
+        //     int index = 0;
+        //     for(User i:similar)
+        //     {
+        //         float user_similarity = getUsersSimilarity(ID, i.getID());
+        //         if(user_similarity < min_similarity)
+        //         {
+        //             min_similarity = user_similarity;
+        //             index = users.indexOf(i);
+        //         }
+        //     }
+        //    // users.remove(index);
+        // }
 
         return similar;
      }
 
      public List<Long> getRecommendedFilms(User main_user, List<User> similar_users)
      {
-        System.out.println(similar_users);
+        //System.out.println(similar_users);
 
          List<Long> all_liked = new ArrayList<Long>();
          for(User i:similar_users)
@@ -121,7 +121,7 @@ public class Engine {
              }
          }
 
-         System.out.println(all_liked);
+         //System.out.println(all_liked);
 
          List<Long> films = new ArrayList<Long>();
          List<Float> percentages = new ArrayList<Float>();
