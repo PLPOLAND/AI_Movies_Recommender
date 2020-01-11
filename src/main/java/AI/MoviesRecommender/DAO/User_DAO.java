@@ -37,18 +37,23 @@ public class User_DAO {
      * @param idFilm - film który ma zostać dodany do polubienia
      */
     public void likeFilm(User user, Long idFilm) {
+        if (user.getPolubione() == null) {
+            user.setPolubione(new ArrayList<>());
+        }
         user.getPolubione().add(idFilm);
         save(user);//zapisanie danych na dysku
     }
-
+    
     /**
      * Usuwanie podanego filmu dla podanego usera
      * @param user - user dla operacji
      * @param idFilm - film do usunięcia z listy polubionych
      */
     public void delLikeFilm(User user, Long idFilm){
-        user.getPolubione().remove(idFilm);
-        save(user);
+        if (user.getPolubione() != null) {   
+            user.getPolubione().remove(idFilm);
+            save(user);
+        }
     }
 
     /**
@@ -58,6 +63,9 @@ public class User_DAO {
      * @param idFilm - film który ma zostać dodany do nie polubionych
      */
     public void UnLikeFilm(User user, Long idFilm) {
+        if (user.getNielubione() == null) {
+            user.setNielubione(new ArrayList<>());
+        }
         user.getNielubione().add(idFilm);
         save(user);
     }
@@ -69,8 +77,10 @@ public class User_DAO {
      * @param idFilm - film do usunięcia z listy polubionych
      */
     public void delUnLikeFilm(User user, Long idFilm) {
-        user.getNielubione().remove(idFilm);
-        save(user);
+        if (user.getNielubione()!=null) {
+            user.getNielubione().remove(idFilm);
+            save(user);
+        }
     }
     /**
      * Sprawdza czy istnieje user o podanym nicku i haśle

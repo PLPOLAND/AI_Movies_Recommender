@@ -47,7 +47,7 @@ public class RESTController {
     }
 
     @RequestMapping("/recommended")
-    public List<Long> recommended(HttpServletRequest request) {
+    public List<Film> recommended(HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
         Engine engine = new Engine(userDatabase.getDatabase(), filmDatabase.getDatabase());
@@ -56,7 +56,7 @@ public class RESTController {
         List<Film> films = filmDatabase.getFilmsFromIDs(filmsId);//To ma być zwracane
         
 
-        return filmsId;
+        return films;
     }
 
     @RequestMapping("/login")
