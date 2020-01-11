@@ -79,7 +79,9 @@ public class MainController {
 	public String register(){
 		return "register";
 	}
-
+	/**
+	 * Strona odpowiadająca za pierwsze wybieranie filmów (nie)polubionych 
+	 */
 	@RequestMapping("/firstpage")
 	public String firstpage(Model model, HttpServletRequest request) {
 		Security security = new Security(request, userDatabase);
@@ -89,8 +91,21 @@ public class MainController {
 		model.addAttribute(banner);
 		return "firstpage";
 	}
+	/**
+	 * 
+	 * 
+	 */
+	@RequestMapping("/proponowane")
+	public String recommended(Model model, HttpServletRequest request) {
+		Security security = new Security(request, userDatabase);
+		if (!security.isLoged())
+			return "redirect:/login";//przekierowanie do logowania
 
+		Banner banner = new Banner(new Menu(), security.getFullUserData());
+		model.addAttribute(banner);
 
+		return "recommendPage";
+	}
 	/**
 	 * Strona logowania
 	 */

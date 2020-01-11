@@ -31,10 +31,6 @@ public class Film_DAO {
         this.readDatabase();
     }
 
-    // @Override //Jeśli ma zapisywać bazę danych podczas usuwania obiektu z pamięci.
-    // public void finalize(){
-        
-    // }
 
     /**
      * Czyta bazę danych z plików
@@ -66,7 +62,19 @@ public class Film_DAO {
         }
         return this.data;
     }
-
+    /**
+     * Pobieranie Filmu o podanych ID
+     * @param ID - ID filmu do pobrania
+     * @return Film o podanym Id (Jeśli nie ma to null)
+     */
+    public Film getFilm(Long ID){
+        for (Film film : data) {
+            if(film.getID().equals(ID))
+                return film;
+            
+        }
+        return null;
+    }
     /**
      * Sprawdza czy baza danych zawiera już to ID
      * 
@@ -149,5 +157,18 @@ public class Film_DAO {
             e.printStackTrace();
         }
         this.data.add(film);//dodaj film do aktualnie przechowywanej bazy danych
+    }
+
+
+    public List<Film> getFilmsFromIDs(List<Long> ids) {
+        List<Film> films = new ArrayList<>();
+
+        for (Long id : ids) {
+            Film f = this.getFilm(id);
+            if (f!=null)
+                films.add(f);
+        }
+
+        return films;
     }
 }

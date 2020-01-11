@@ -13,6 +13,7 @@ import AI.MoviesRecommender.DAO.Film_DAO;
 import AI.MoviesRecommender.DAO.User_DAO;
 import AI.MoviesRecommender.Model.Film;
 import AI.MoviesRecommender.Model.User;
+import AI.MoviesRecommender.Recommender.Engine;
 import AI.MoviesRecommender.Security.Security;
 
 /**
@@ -43,6 +44,19 @@ public class RESTController {
         userDatabase.getDatabase().add(u);
 
         return true;
+    }
+
+    @RequestMapping("/recommended")
+    public List<Long> recommended(HttpServletRequest request) {
+        Security security = new Security(request, userDatabase);
+        User user = security.getFullUserData();
+        Engine engine = new Engine(userDatabase.getDatabase(), filmDatabase.getDatabase());
+        
+        List<Long> filmsId = engine.getRecommendedFilms(user,engine.getSimilarUsers(user.getID()));
+        List<Film> films = filmDatabase.getFilmsFromIDs(filmsId);//To ma być zwracane
+        
+
+        return filmsId;
     }
 
     @RequestMapping("/login")
