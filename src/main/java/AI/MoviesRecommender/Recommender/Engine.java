@@ -69,7 +69,7 @@ public class Engine {
                 opposite_rating++;
         }
 
-        if(same_rating == 0L && opposite_rating == 0L)
+        if(same_rating == opposite_rating)
             return 0.f;
 
         float similarity_precantage = (float)same_rating / (float)(same_rating+opposite_rating);
@@ -109,6 +109,8 @@ public class Engine {
 
      public List<Long> getRecommendedFilms(User main_user, List<User> similar_users)
      {
+        System.out.println(similar_users);
+
          List<Long> all_liked = new ArrayList<Long>();
          for(User i:similar_users)
          {
@@ -118,6 +120,8 @@ public class Engine {
                     all_liked.add(j);
              }
          }
+
+         System.out.println(all_liked);
 
          List<Long> films = new ArrayList<Long>();
          List<Float> percentages = new ArrayList<Float>();
