@@ -81,9 +81,12 @@ public class User_DAO {
     public User getUserLoginData(String name, String pass) {
         User usr = null;
         for (User user : data) {
-            if (user.getNick().equals(name)) {
-                usr=user;
+            if(user.getNick()!=null){
+                if (user.getNick().equals(name)) {
+                    usr=user;
+                }
             }
+            
         }
         if (usr==null) {
             return null;
