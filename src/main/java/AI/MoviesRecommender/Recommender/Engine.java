@@ -69,7 +69,7 @@ public class Engine {
                 opposite_rating++;
         }
 
-        if(same_rating == opposite_rating)
+        if((same_rating + opposite_rating) == 0L)
             return 0.f;
 
         float similarity_precantage = (float)same_rating / (float)(same_rating+opposite_rating);
