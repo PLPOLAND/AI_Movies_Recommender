@@ -4,7 +4,7 @@
   "nazwisko" : "Okam",
   "nick" : "xxx",
   "pass" : "xxx",
-  "polubione" : null,
-  "nielubione" : null,
+  "polubione" : [1,2,3],
+  "nielubione" : [4],
   "id" : 1003
 }

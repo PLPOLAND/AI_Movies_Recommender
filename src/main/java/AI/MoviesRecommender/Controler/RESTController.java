@@ -117,7 +117,7 @@ public class RESTController {
         }
     }
     
-    @RequestMapping("/likeFilm")
+    @RequestMapping("/likeFilm") //TODO: nullexception
     public boolean likeFilm(@RequestParam("idF") Long idF, HttpServletRequest request){
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
@@ -137,7 +137,7 @@ public class RESTController {
         return true; //Zwróć informację o tym że film istnieje w polubionych
     }
 
-    @RequestMapping("unLikeFilm")
+    @RequestMapping("unLikeFilm") //TODO: nullexception
     public boolean unLikeFilm(@RequestParam("idF") Long idF, HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
