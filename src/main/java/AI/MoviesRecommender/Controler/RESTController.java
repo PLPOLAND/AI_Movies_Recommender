@@ -56,6 +56,12 @@ public class RESTController {
     public List<EngineFilm> recommended(HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
+        if (user.getPolubione() == null) {
+            return null;
+        }
+        if (user.getPolubione().size() < 4) {
+            return null;
+        }
         EngineUser u = engineDatabase.getUserById(user.getID());
         return u.getSugFilms();
     }

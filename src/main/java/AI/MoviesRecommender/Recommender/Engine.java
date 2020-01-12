@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import AI.MoviesRecommender.Model.User;
@@ -140,6 +139,9 @@ public class Engine {
       */
      public List<User> getSimilarUsers(Long ID)//Lista użytkowników o podobnych ocenach
      { 
+        if (getUser(ID).getPolubione()==null) {
+            return null;
+        }
         List<User> similar = new ArrayList<User>();
         for(User i:this.users)
         {
@@ -182,6 +184,11 @@ public class Engine {
       */
      public List<Similarity> getSimUsers(Long ID){
         List<Similarity> similar = new ArrayList<>();
+        if (getUser(ID).getPolubione() == null) {//jeśli nie polubiono jeszcze niczego
+            return null;
+        }
+        if(getUser(ID).getPolubione().size() < 4)//jeśli nie polubiono jeszcze conajmniej 4 filmów
+            return null;
 
         for (User user : this.users) {
             if (ID != user.getID()) {

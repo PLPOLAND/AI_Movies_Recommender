@@ -15,7 +15,6 @@ import AI.MoviesRecommender.DAO.Film_DAO;
 import AI.MoviesRecommender.DAO.User_DAO;
 import AI.MoviesRecommender.Model.EngineFilm;
 import AI.MoviesRecommender.Model.Film;
-import AI.MoviesRecommender.Recommender.Engine;
 import AI.MoviesRecommender.Security.Security;
 import Generator.Generator;
 

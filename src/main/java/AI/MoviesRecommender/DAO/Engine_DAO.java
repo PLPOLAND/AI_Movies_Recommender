@@ -66,6 +66,12 @@ public class Engine_DAO {
      * @return EngineUser - stworzony lub zaaktualizowany user
      */
     public EngineUser createUser(User user){
+        if (user.getPolubione() == null) {
+            return null;
+        }
+        if (user.getPolubione().size() < 4) {
+            return null;
+        }
         if (getUserById(user.getID()) == null) {
             
             EngineUser u = new EngineUser(user);
@@ -99,6 +105,12 @@ public class Engine_DAO {
         EngineUser u = this.getUserById(Id);
 
         if (u != null) {
+            if (u.getPolubione() == null) {
+                return null;
+            }
+            if (u.getPolubione().size() < 4) {
+                return null;
+            }
             List<Similarity> sim = engine.getSimUsers(u.getID());
             Collections.sort(sim);// sortowanie
             u.setSimilarity(sim);
@@ -113,6 +125,12 @@ public class Engine_DAO {
                     return null;
                 } else {
                     u = new EngineUser(user);
+                    if (u.getPolubione() == null) {
+                        return null;
+                    }
+                    if (u.getPolubione().size() < 4) {
+                        return null;
+                    }
                 }
             }
             List<Similarity> sim = engine.getSimUsers(u.getID());
@@ -144,6 +162,12 @@ public class Engine_DAO {
      * @param u - user do zaktualizowania
      */
     public EngineUser updateUser(EngineUser u) {
+        if (u.getPolubione()==null) {
+            return null;
+        }
+        if(u.getPolubione().size() < 4){
+            return null;
+        } 
         List<Similarity> sim = engine.getSimUsers(u.getID());// dodanie podobnych userów
         Collections.sort(sim);
         u.setSimilarity(sim);

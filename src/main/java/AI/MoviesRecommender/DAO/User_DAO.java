@@ -192,7 +192,8 @@ public class User_DAO {
      * @param user - user do zapisania
      */
     public boolean save(User user) {
-        if (user != null) { //TODO
+        if (user != null) {
+            
             try {
 
                 ObjectMapper objectMapper = new ObjectMapper();
