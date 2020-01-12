@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import AI.MoviesRecommender.DAO.Engine_DAO;
 import AI.MoviesRecommender.DAO.Film_DAO;
 import AI.MoviesRecommender.DAO.User_DAO;
+import AI.MoviesRecommender.Model.EngineFilm;
+import AI.MoviesRecommender.Model.EngineUser;
 import AI.MoviesRecommender.Model.Film;
 import AI.MoviesRecommender.Model.User;
-import AI.MoviesRecommender.Recommender.Engine;
 import AI.MoviesRecommender.Security.Security;
 
 /**
@@ -24,8 +26,12 @@ import AI.MoviesRecommender.Security.Security;
 public class RESTController {
     @Autowired
     User_DAO userDatabase;
+    
     @Autowired
     Film_DAO filmDatabase;
+    
+    @Autowired
+    Engine_DAO engineDatabase;
 
 
     @RequestMapping("/register")
@@ -47,16 +53,11 @@ public class RESTController {
     }
 
     @RequestMapping("/recommended")
-    public List<Film> recommended(HttpServletRequest request) {
+    public List<EngineFilm> recommended(HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
-        Engine engine = new Engine(userDatabase.getDatabase(), filmDatabase.getDatabase());
-        
-        List<Long> filmsId = engine.getRecommendedFilms(user,engine.getSimilarUsers(user.getID()));
-        List<Film> films = filmDatabase.getFilmsFromIDs(filmsId);//To ma być zwracane
-        
-
-        return films;
+        EngineUser u = engineDatabase.getUserById(user.getID());
+        return u.getSugFilms();
     }
 
     @RequestMapping("/login")
@@ -64,6 +65,8 @@ public class RESTController {
         Security security = new Security(request, userDatabase);
 
         if (security.login()) {
+            // engineDatabase.init(userDatabase,filmDatabase);
+            engineDatabase.createUser(security.getFullUserData());
             return true;
         } else {
             return false;
@@ -112,6 +115,8 @@ public class RESTController {
     public boolean likeFilm(@RequestParam("idF") Long idF, HttpServletRequest request){
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
+        engineDatabase.updateUser(user);
+
         if (user.getPolubione().contains(idF) && !user.getNielubione().contains(idF)) {
             userDatabase.delLikeFilm(user, idF);
             return false; // Zwróć informację o tym że film nie istnieje w polubionych
@@ -130,6 +135,7 @@ public class RESTController {
     public boolean unLikeFilm(@RequestParam("idF") Long idF, HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
+        engineDatabase.updateUser(user);
 
         if (user.getNielubione().contains(idF) && !user.getPolubione().contains(idF)) {
             userDatabase.delUnLikeFilm(user, idF);

@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import AI.MoviesRecommender.Banner.Banner;
 import AI.MoviesRecommender.Banner.Menu;
+import AI.MoviesRecommender.DAO.Engine_DAO;
 import AI.MoviesRecommender.DAO.Film_DAO;
 import AI.MoviesRecommender.DAO.User_DAO;
+import AI.MoviesRecommender.Model.EngineFilm;
 import AI.MoviesRecommender.Model.Film;
 import AI.MoviesRecommender.Recommender.Engine;
 import AI.MoviesRecommender.Security.Security;
+import Generator.Generator;
 
 
 
@@ -24,7 +27,8 @@ public class MainController {
 	Film_DAO filmDatabase;
 	@Autowired
 	User_DAO userDatabase;
-
+	@Autowired
+	Engine_DAO engineDatabase;
 
 /**
  * Strona główna
@@ -64,13 +68,16 @@ public class MainController {
 		Banner banner = new Banner(new Menu(), security.getFullUserData());
 		model.addAttribute(banner);
 
-		Engine eng = new Engine(userDatabase.getDatabase(), filmDatabase.getDatabase());
-		Film f = eng.getFilm(film_ID);
+		
+		Film f = filmDatabase.getFilm(film_ID);
 		model.addAttribute("f", f);
-		float procent = eng.getPercantageAccuracy(f.getID(), eng.getSimilarUsers(security.getUserID()));
-		procent *= 100;
-		procent = Math.round(procent);
-		procent /= 100;
+		EngineFilm film = null;
+		for (EngineFilm fi : engineDatabase.getUserById(security.getUserID()).getSugFilms()) {
+			if (fi.getID().equals(film_ID)) {
+				film=fi;
+			}
+		}
+		float procent = film.getRecomendation();
 		
 		model.addAttribute("procent", procent);
 		model.addAttribute("uID", security.getUserID());
@@ -130,6 +137,8 @@ public class MainController {
 
 	@RequestMapping("/tmp")
 	public String tmp() {
+		Generator gen = new Generator(filmDatabase, userDatabase);
+		//gen.generateUsers(1000);
 		return "tmp";
 	}
 }

@@ -42,7 +42,7 @@ public class Generator {
             User u = new User();
             u.setID(new Long(j));
             u.setPolubione(generateLiked(film_DAO.getDatabase().size() / 2));
-            u.setNielubione(generateUnLiked(film_DAO.getDatabase().size() / 2, u.getPolubione()));
+            u.setNielubione(generateUnLiked(film_DAO.getDatabase().size() / 4, u.getPolubione()));
             this.saveUser(u);
         }
     }

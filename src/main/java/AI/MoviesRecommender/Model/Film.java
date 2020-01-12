@@ -23,7 +23,15 @@ public class Film {
         this.rokProdukcji = rokProdukcji;
     }
 
-    public Long getID() {
+    public Film(Film f) {
+        this.id = f.id;
+        this.tytul = f.tytul;
+        this.zdjecie = f.zdjecie;
+        this.gatunek = f.gatunek;
+        this.rokProdukcji = f.rokProdukcji;
+	}
+
+	public Long getID() {
         return this.id;
     }
 

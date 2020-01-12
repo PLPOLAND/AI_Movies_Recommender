@@ -25,6 +25,7 @@ public class Menu {
             this.Add("logowanie", "/login");
             this.Add("Strona Główna", "/");
             this.Add("Dodawanie filmów", "/filmMaker");
+            this.Add("Proponowane", "/proponowane");
             // this.Add("strona admina", "/adminhome");
             // this.Add("test", "/test", true);
             // this.Add("Użytkownicy", "#", true);

@@ -93,6 +93,17 @@ public class User {
         this.polubione = polubione;
         this.nielubione = nielubione;
     }
+    
+    public User(User u) {
+        this.ID = u.ID;
+        this.imie = u.imie;
+        this.email = u.email;
+        this.nazwisko = u.nazwisko;
+        this.nick = u.nick;
+        this.pass = u.pass;
+        this.polubione = u.polubione;
+        this.nielubione = u.nielubione;
+    }
     public User(){}
 
     @Override

@@ -3,28 +3,39 @@ package AI.MoviesRecommender.Recommender;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import AI.MoviesRecommender.Model.User;
+import AI.MoviesRecommender.DAO.Film_DAO;
+import AI.MoviesRecommender.DAO.User_DAO;
+import AI.MoviesRecommender.Model.EngineFilm;
+import AI.MoviesRecommender.Model.EngineUser;
 import AI.MoviesRecommender.Model.Film;
+import AI.MoviesRecommender.Model.Similarity;
 
 /**
  * Klasa przetrzymująca dane o filmie.
  * 
  * @author Rafał Świąder
  */
-
+@Service
 public class Engine {
 
     // Listy użytkowników i filmów
     List<User> users;
     List<Film> films;
 
-     final float similarity_treshold = 0.75f;
-     final int similar_users_limit = 100;
+    final float similarity_treshold = 0.75f;
+    final int similar_users_limit = 100;
+    final float minFilmRecom = 50f; //Minimalna wartość trafności filmu
 
-     public Engine(List<User> users, List<Film> films)
+    @Autowired
+     public Engine(User_DAO users, Film_DAO films)
      {
-        this.users = users;
-        this.films = films;
+        this.users = users.getDatabase();
+        this.films = films.getDatabase();
      }
 
      public User getUser(Long ID)
@@ -47,7 +58,16 @@ public class Engine {
          return null;
      }
 
-     /* Algorytmy doboru */
+     /**
+     * Zwraca podobieństwo userów
+     * 
+     * @author Rafał Świąder
+     * @param first_ID  - id pierwszego usera
+     * @param second_ID - id drugiego usera
+     * @return float - podobieństwo
+     * @deprecated 
+     * @see Engine#getUsersSim(Long firstId, Long secId)
+     */
      public float getUsersSimilarity(Long first_ID, Long second_ID)
      {
         Long same_rating = 0L;
@@ -75,7 +95,49 @@ public class Engine {
         float similarity_precantage = (float)same_rating / (float)(same_rating+opposite_rating);
         return similarity_precantage;
      }
+     /**
+      * Zwraca podobieństwo userów
+      * @author Marek Pałdyna
+      * @param firstId - Id pierwszego usera
+      * @param secId - Id drugiego usera
+      * @return float - podobieństwo userów
+      */
+     public float getUsersSim(Long firstId, Long secId){
+        float similarity = 0;
+        float sameRate = 0;
+        float diffRate = 0;
+        for (Long id : this.getUser(firstId).getPolubione()){
+            if(this.getUser(secId).getPolubione().contains(id)){
+                sameRate++;
+            }
+            else if(this.getUser(secId).getNielubione().contains(id)){
+                diffRate--;
+            }
+        }
+        for (Long id : this.getUser(firstId).getNielubione()) {
+            if (this.getUser(secId).getNielubione().contains(id)) {
+                sameRate++;
+            } else if (this.getUser(secId).getPolubione().contains(id)) {
+                diffRate--;
+            }
+        }
+        if (sameRate +diffRate == 0) {
+                return 0f;
+        } else {
+            similarity = (float)sameRate/(sameRate+diffRate);
+        }
+        return similarity;
 
+     }
+     
+     /**
+      * Zwraca listę usrów o podobnych ocenach
+      * @author Rafał Świąder
+      * @param ID - id usera dla którego zwracani są podobni userzy
+      * @return List<User> - lista userów podobnych.
+      * @deprecated 
+      * @see Engine#getSimUsers(Long Id)
+      */
      public List<User> getSimilarUsers(Long ID)//Lista użytkowników o podobnych ocenach
      { 
         List<User> similar = new ArrayList<User>();
@@ -113,51 +175,137 @@ public class Engine {
 
         return similar;
      }
+     /**
+      * Zwraca listę userów podobnych
+      * @param ID - id usera dla którego są znajdowani userzy podobni
+      * @return List<User> - lista userów podobnych
+      */
+     public List<Similarity> getSimUsers(Long ID){
+        List<Similarity> similar = new ArrayList<>();
 
-     public List<Long> getRecommendedFilms(User main_user, List<User> similar_users)
-     {
-        //System.out.println(similar_users);
-
-         List<Long> all_liked = new ArrayList<Long>();
-         for(User i:similar_users)
-         {
-             for(Long j:i.getPolubione())
-             {
-                if(!all_liked.contains(j))
-                    all_liked.add(j);
-             }
-         }
-
-         //System.out.println(all_liked);
-
-         List<Long> films = new ArrayList<Long>();
-         List<Float> percentages = new ArrayList<Float>();
-         for(Long i:all_liked)
-         {
-             Float perc = getPercantageAccuracy(i, similar_users);
-             if(perc >= 50.f)
-             {
-                films.add(i);
-                percentages.add(perc);
-             }
-         }
-
-         return films;
+        for (User user : this.users) {
+            if (ID != user.getID()) {
+                Similarity s = new Similarity(user.getID(), getUsersSim(ID, user.getID()));
+                similar.add(s);
+            }
+        }
+        return similar;
      }
+    /**
+     * Zwraca listę id filmów recomendowanych
+     * @deprecated
+     * @author Rafał Świąder
+     * @param main_user - user dla którego szukamy filmów podobnych
+     * @param similar_users - userzy podobni do main_user, których bierzemy pod uwagę 
+     * @return List<Long> - id filmów podobnych
+    */
+    public List<Long> getRecommendedFilms(User main_user, List<User> similar_users)
+    {
+    //System.out.println(similar_users);
 
-     public float getPercantageAccuracy(Long film_ID, List<User> similar_users)
-     {
-        int liked = 0, disliked = 0;
-
+        List<Long> all_liked = new ArrayList<Long>();
         for(User i:similar_users)
         {
-            if(i.getPolubione().contains(film_ID))
-                liked++;
-            else if(i.getNielubione().contains(film_ID))
-                disliked++;
+            for(Long j:i.getPolubione())
+            {
+            if(!all_liked.contains(j))
+                all_liked.add(j);
+            }
         }
 
-        float percentage = (float)liked / (float)(liked + disliked);
-        return percentage * 100;
-     }
+        //System.out.println(all_liked);
+
+        List<Long> films = new ArrayList<Long>();
+        List<Float> percentages = new ArrayList<Float>();
+        for(Long i:all_liked)
+        {
+            Float perc = getPercantageAccuracy(i, similar_users);
+            if(perc >= 50.f)
+            {
+            films.add(i);
+            percentages.add(perc);
+            }
+        }
+
+        return films;
+    }
+     
+    /**
+     * Zwraca listę filmów recomendowanych
+     * 
+     * @author Marek Pałdyna
+     * @param main_user - user dla którego szukamy rekomendacji
+     * @param similar_u - podobni userzy
+     * @return List<EngineFilm> - lista rekomendowanych filmów z ich procentową wartością 
+     */
+    public List<EngineFilm> getRecommendedFilmsList(EngineUser main_user) {
+        
+        List<Similarity> similarities= new ArrayList<>();
+        for (Similarity similarity : main_user.getSimilarity()) {
+            if (similarity.getSimilarity()>= similarity_treshold && similarities.size()<=similar_users_limit) {
+                similarities.add(similarity);
+            }
+            else if(similarities.size() > similar_users_limit)
+                break;
+        }
+        
+        List<User> simUsers = new ArrayList<>();
+
+        for (Similarity similarity: similarities) {
+            simUsers.add(this.getUser(similarity.getID()));
+        }
+
+        List <Film> filmy = new ArrayList<>(); // filmy dla których możemy wyznaczyć recomendację
+        for (User user : simUsers) {
+            for (Long film : user.getPolubione()) {
+                
+                Film f = this.getFilm(film);
+                if (f!=null) {
+                    if (!filmy.contains(f)) {
+                        
+                        filmy.add(f);
+                    }
+                }
+            }
+        }
+        
+        List<EngineFilm> recofilms = new ArrayList<>();
+        for (Film film : filmy) {
+            int liked = 0, disliked = 0;
+            if (!main_user.getPolubione().contains(film.getID()) && !main_user.getNielubione().contains(film.getID())) {
+                for (User i : simUsers) {
+                    if (i.getPolubione().contains(film.getID()))
+                        liked++;
+                    else if (i.getNielubione().contains(film.getID()))
+                        disliked++;
+                }
+
+                float percentage = ((float) liked / (float) (liked + disliked)) * 100;
+                if (percentage >= minFilmRecom) {
+                    EngineFilm f = new EngineFilm(film);
+                    f.setRecomendation(percentage);
+                    recofilms.add(f);
+                }
+            }
+        }
+
+        
+        return recofilms;
+    }
+
+    public float getPercantageAccuracy(Long film_ID, List<User> similar_users)
+    {
+    int liked = 0, disliked = 0;
+
+    for(User i:similar_users)
+    {
+        if(i.getPolubione().contains(film_ID))
+            liked++;
+        else if(i.getNielubione().contains(film_ID))
+            disliked++;
+    }
+
+    float percentage = (float)liked / (float)(liked + disliked);
+    return percentage * 100;
+    }
  }
