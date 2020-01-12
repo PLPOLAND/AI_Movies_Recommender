@@ -31,15 +31,17 @@
         <div id="mainbody">
             <div id="movie">
                 <div id="film-data">
-                    <span id="film-title">${f.getTytul()}</span><br/>
-                    <img src="${f.getZdjecie()}" alt="Image"><br/>
+                    <div id="film-title">${f.getTytul()}<br/></div>
+                    <div id="film-image"><img src="${f.getZdjecie()}" alt="Image"><br/></div>
                     
-                    <span class="film-description">Gatunek: ${f.getGatunek()}</span><br/>
-                    <span class="film-description">Rok produkcji: ${f.getRokProdukcji()}</span><br/>
+                    <div class="film-description">
+                        Gatunek: ${f.getGatunek()}<br/>
+                        Rok produkcji: ${f.getRokProdukcji()}<br/>
+                    </div>
                 </div>
                 
                 <div id="recommendation">
-                    <span id="accuracy"><br/>Trafność: ${procent}%</span><br/>
+                    Trafność: ${procent}%
                 </div>
                 <div id="end"></div>
             </div>

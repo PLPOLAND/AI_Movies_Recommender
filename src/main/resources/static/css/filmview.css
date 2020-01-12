@@ -2,28 +2,34 @@
 {
     color: #2299FF;
     font-size: 36px;
+    text-align: center;
+}
+
+#film-image
+{
+    display: block;
+    text-align: center;
 }
 
 .film-description
 {
     color: #33BBFF;
     font-size: 24px;
+    text-align: center;
 }
 
-#accuracy
+#recommendation
 {
     color: #DDDDFF;
     font-size: 36px;
+    padding-top: 240px;
 }
 
 #film-data
 {
     float: left;
-}
-
-#accuracy
-{
-    padding: 50px;
+    padding-right: 25px;
+    padding-top: 20px;
 }
 
 #end

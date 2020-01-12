@@ -68,6 +68,10 @@ public class MainController {
 		Film f = eng.getFilm(film_ID);
 		model.addAttribute("f", f);
 		float procent = eng.getPercantageAccuracy(f.getID(), eng.getSimilarUsers(security.getUserID()));
+		procent *= 100;
+		procent = Math.round(procent);
+		procent /= 100;
+		
 		model.addAttribute("procent", procent);
 		model.addAttribute("uID", security.getUserID());
 
