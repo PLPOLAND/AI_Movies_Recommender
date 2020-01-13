@@ -136,10 +136,10 @@ function seef() {
     if(unliked != null)
         colorDisLiked();
     start = end;
-    if ((end + 10) <= films.length ) {
-        end += 10;
+    if ((end + 45) <= films.length ) {
+        end += 45;
         console.log(end);
-        setTimeout(seef,200);
+        setTimeout(seef,100);
         
     }
     else if(end + 1 <= films.length ){

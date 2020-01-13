@@ -125,14 +125,14 @@ function seef() {
     if (unliked != null)
         colorDisLiked();
     start = end;
-    if ((end + 6) <= films.length) {
-        end += 6;
-        setTimeout(seef, 300);
+    if ((end + 45) <= films.length) {
+        end += 45;
+        setTimeout(seef, 100);
 
     }
     else if (end + 1 <= films.length) {
         end++;
-        setTimeout(seef, 100);
+        setTimeout(seef, 10);
     }
 }
 
