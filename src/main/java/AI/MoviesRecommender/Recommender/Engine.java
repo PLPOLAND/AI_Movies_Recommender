@@ -122,7 +122,7 @@ public class Engine {
         if (sameRate + diffRate == 0) {
             return 0f;
         } else {
-            similarity = (float) sameRate / (sameRate + diffRate);
+            similarity = (float) sameRate / (sameRate + Math.abs(diffRate));
         }
         return similarity;
 
@@ -243,8 +243,7 @@ public class Engine {
             if (main_user.getSimilarity().size() >= 4) {
                 List<Similarity> similarities = new ArrayList<>();
                 for (Similarity similarity : main_user.getSimilarity()) {
-                    if (similarity.getSimilarity() >= similarity_treshold
-                            && similarities.size() <= similar_users_limit) {
+                    if (similarity.getSimilarity() >= similarity_treshold && similarities.size() <= similar_users_limit) {
                         similarities.add(similarity);
                     } else if (similarities.size() > similar_users_limit)
                         break;
@@ -256,19 +255,7 @@ public class Engine {
                     simUsers.add(this.getUser(similarity.getID()));
                 }
 
-                List<Film> filmy = new ArrayList<>(); // filmy dla których możemy wyznaczyć recomendację
-                for (User user : simUsers) {
-                    for (Long film : user.getPolubione()) {
-
-                        Film f = this.getFilm(film);
-                        if (f != null) {
-                            if (!filmy.contains(f)) {
-
-                                filmy.add(f);
-                            }
-                        }
-                    }
-                }
+                List<Film> filmy = films;
 
                 List<EngineFilm> recofilms = new ArrayList<>();
                 if(main_user.getNielubione()==null)
@@ -282,13 +269,13 @@ public class Engine {
                             else if (i.getNielubione().contains(film.getID()))
                                 disliked++;
                         }
-
-                        float percentage = ((float) liked / (float) (liked + disliked)) * 100;
-                        if (percentage >= minFilmRecom) {
-                            EngineFilm f = new EngineFilm(film);
-                            f.setRecomendation(percentage);
-                            recofilms.add(f);
+                        float percentage=0;
+                        if (liked + disliked != 0) {
+                            percentage = ((float) liked / (float) (liked + disliked)) * 100;
                         }
+                        EngineFilm f = new EngineFilm(film);
+                        f.setRecomendation(percentage);
+                        recofilms.add(f);
                     }
                 }
 

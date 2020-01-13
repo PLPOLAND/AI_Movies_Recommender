@@ -1,0 +1,10 @@
+{
+  "imie" : "xxx",
+  "email" : "xxx@xxx",
+  "nazwisko" : "xxx",
+  "nick" : "xxx",
+  "pass" : "xxx",
+  "polubione" : [ 5, 6, 4, 3 ],
+  "nielubione" : null,
+  "id" : 1003
+}

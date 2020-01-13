@@ -71,7 +71,13 @@ public class RESTController {
             return null;
         }
         EngineUser u = engineDatabase.getUserById(user.getID());
-        return u.getSugFilms();
+        List<EngineFilm> sugFilms = new ArrayList<>();
+        for (EngineFilm engineFilm : u.getSugFilms()) {
+            if (engineFilm.getRecomendation()>=50f) {
+                sugFilms.add(engineFilm);
+            }
+        }
+        return sugFilms;
     }
 
     @RequestMapping("/login")
