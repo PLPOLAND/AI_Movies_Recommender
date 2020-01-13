@@ -137,7 +137,7 @@ function seef() {
 }
 
 function colorLiked() {
-    if (likedf!=null) {
+    if (likedf != null && likedf != []) {
         likedf.forEach(element => {
             var text = '#f' + element;
             $($(text).children().children().children().get(0)).addClass('liked');
