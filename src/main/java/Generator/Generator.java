@@ -54,10 +54,10 @@ public class Generator {
      */
     public List<Long> generateLiked(int i) {
         List<Long> list = new ArrayList<>();
-        int maxBound = film_DAO.getDatabase().size();
+        int maxBound = film_DAO.getDatabase().size()+1;
         for (int j = 0; j < i; j++) {
             Long losed = this.nextLong(random, maxBound);
-            while (list.contains(losed) ) {
+            while (list.contains(losed) || losed.equals(0L) ) {
                 losed = this.nextLong(random, maxBound);
             }
             list.add(losed);
@@ -76,7 +76,7 @@ public class Generator {
         int maxBound = film_DAO.getDatabase().size();
         for (int j = 0; j < i; j++) {
             Long losed = this.nextLong(random, maxBound);
-            while (liked.contains(losed)|| list.contains(losed)) {
+            while (liked.contains(losed)|| list.contains(losed) || losed.equals(0L)) {
                 losed = this.nextLong(random, maxBound);
             }
             list.add(losed);
