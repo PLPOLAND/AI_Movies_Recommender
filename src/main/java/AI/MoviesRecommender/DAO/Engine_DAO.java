@@ -45,19 +45,19 @@ public class Engine_DAO {
      */
     public EngineUser getUserById(Long Id) {
         if (users !=null) {
-            System.out.println("GetUserById users != null");
+            // System.out.println("GetUserById users != null");
             for (EngineUser engineUser : users) {
                 if (engineUser.getID().equals(Id)){
                     
-                    System.out.println("Found");
+                    // System.out.println("Found");
                     return engineUser;
                 }
                 else{
-                    System.out.println(engineUser.getID());
+                    // System.out.println(engineUser.getID());
                 }
             }
         }
-        System.out.println("GetUserById users = null");
+        // System.out.println("GetUserById users = null");
         return null;
     }
     /**
