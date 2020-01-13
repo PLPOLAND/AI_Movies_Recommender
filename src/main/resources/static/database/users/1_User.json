@@ -4,7 +4,7 @@
   "nazwisko" : "Fifuś",
   "nick" : "Raffik",
   "pass" : "xxx",
-  "polubione" : [ 1, 2],
+  "polubione" : [ 1, 2, 5, 6],
   "nielubione" : [ 3, 4],
   "id" : 1
 }
