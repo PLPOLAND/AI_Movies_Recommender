@@ -139,24 +139,28 @@ function seef() {
     if ((end + 10) <= films.length ) {
         end += 10;
         console.log(end);
-        setTimeout(seef,500);
+        setTimeout(seef,200);
         
     }
     else if(end + 1 <= films.length ){
         end ++;
-        setTimeout(seef,100);
+        setTimeout(seef,10);
     }
 }
 
-function colorLiked(){
-    liked.forEach(element => {
-        var text = '#f' + element;
-        $($(text).children().children().children().get(0)).addClass('liked');
-    });
+function colorLiked() {
+    if (liked != null) {
+        liked.forEach(element => {
+            var text = '#f' + element;
+            $($(text).children().children().children().get(0)).addClass('liked');
+        });
+    }
 }
-function colorDisLiked(){
-    unliked.forEach(element => {
-        var text = '#f' + element;
-        $($(text).children().children().children().get(1)).addClass('unliked');
-    });
+function colorDisLiked() {
+    if (unliked != null && unliked != []) {
+        unliked.forEach(element => {
+            var text = '#f' + element;
+            $($(text).children().children().children().get(1)).addClass('unliked');
+        });
+    }
 }

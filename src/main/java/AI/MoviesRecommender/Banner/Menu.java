@@ -21,19 +21,22 @@ public class Menu {
         pozycjemenu = new ArrayList<>();
         //tymczasowe pozycje
         // System.out.println("MENU: " + uprawnienia.toString());//DEBUG
+        this.Add("Lista wszystkich filmów", "/");
+        this.Add("Proponowane", "/proponowane");
         
-            this.Add("logowanie", "/login");
-            this.Add("Strona Główna", "/");
-            this.Add("Dodawanie filmów", "/filmMaker");
+    }
+    /** Konstruktor */
+    public Menu( int i ) {
+        pozycjemenu = new ArrayList<>();
+        //tymczasowe pozycje
+        // System.out.println("MENU: " + uprawnienia.toString());//DEBUG
+        if(i==1){
+            this.Add("Musisz polubić co najmniej 4 filmy aby przejść dalej!", "#");
+        }
+        else{
+            this.Add("Lista wszystkich filmów", "/");
             this.Add("Proponowane", "/proponowane");
-            // this.Add("strona admina", "/adminhome");
-            // this.Add("test", "/test", true);
-            // this.Add("Użytkownicy", "#", true);
-            // this.AddToDropDawnPos("Użytkownicy", "Lista", "/adminhome");
-            // this.AddToDropDawnPos("Użytkownicy", "Dodawanie", "/add_user_page");
-            // this.Add("templatka", "/tmp");
-            // this.AddToDropDawnPos("test", "menu", "/menu");
-            // this.AddToDropDawnPos("test", "Testy Julka", "/xxx");
+        }
         
     }
 

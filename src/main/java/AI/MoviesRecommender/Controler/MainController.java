@@ -38,6 +38,12 @@ public class MainController {
 		Security security = new Security(request, userDatabase);
 		if (!security.isLoged())
 			return "redirect:/login";
+		if (userDatabase.getUserByID(security.getUserID()).getPolubione() == null) {
+			return "redirect:/firstpage";
+		}
+		if (userDatabase.getUserByID(security.getUserID()).getPolubione().size() < 4) {
+			return "redirect:/firstpage";
+		}
 		Banner banner = new Banner(new Menu(), security.getFullUserData());
 		model.addAttribute(banner);
 		return "mainpage";
@@ -112,7 +118,7 @@ public class MainController {
 		Security security = new Security(request, userDatabase);
 		if (!security.isLoged())
 			return "redirect:/login";
-		Banner banner = new Banner(new Menu(), security.getFullUserData());
+		Banner banner = new Banner(new Menu(1), security.getFullUserData());
 		model.addAttribute(banner);
 		return "firstpage";
 	}

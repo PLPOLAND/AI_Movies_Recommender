@@ -2,15 +2,7 @@ var liked = 0;
 
 $(document).ready(function () {
     seefilms();
-    // $(".icon").click(function(){
-    //     console.log(liked);
-    //     if(liked>=1){
-    //         $(".show").css("display","block");
-    //     }
-    //     else{
-    //         $(".show").css("display", "none");
-    //     }
-    // });
+
     window.setInterval(function () {
         if (liked >= 4) {
             $(".show").css("display", "block");
@@ -26,7 +18,7 @@ $(document).ready(function () {
 
 
 var films = null;
-var liked = null;
+var likedf = null;
 var unliked = null;
 var start = 0, end = 30;
 
@@ -54,9 +46,8 @@ function seefilms() {
                 type: 'post',
                 data: {},
                 success: function (response) {
-                    liked = response;
+                    likedf = response;
                     colorLiked();
-                    console.log(liked);
                 }
             });
             window.setTimeout(seef(), 5);
@@ -134,10 +125,9 @@ function seef() {
     if (unliked != null)
         colorDisLiked();
     start = end;
-    if ((end + 10) <= films.length) {
-        end += 10;
-        console.log(end);
-        setTimeout(seef, 500);
+    if ((end + 6) <= films.length) {
+        end += 6;
+        setTimeout(seef, 300);
 
     }
     else if (end + 1 <= films.length) {
@@ -147,14 +137,18 @@ function seef() {
 }
 
 function colorLiked() {
-    liked.forEach(element => {
-        var text = '#f' + element;
-        $($(text).children().children().children().get(0)).addClass('liked');
-    });
+    if (likedf!=null) {
+        likedf.forEach(element => {
+            var text = '#f' + element;
+            $($(text).children().children().children().get(0)).addClass('liked');
+        });
+    }
 }
 function colorDisLiked() {
-    unliked.forEach(element => {
-        var text = '#f' + element;
-        $($(text).children().children().children().get(1)).addClass('unliked');
-    });
+    if(unliked != null && unliked!=[]){
+        unliked.forEach(element => {
+            var text = '#f' + element;
+            $($(text).children().children().children().get(1)).addClass('unliked');
+        });
+    }
 }
