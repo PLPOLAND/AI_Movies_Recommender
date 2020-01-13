@@ -15,6 +15,7 @@ import AI.MoviesRecommender.DAO.Film_DAO;
 import AI.MoviesRecommender.DAO.User_DAO;
 import AI.MoviesRecommender.Model.EngineFilm;
 import AI.MoviesRecommender.Model.Film;
+import AI.MoviesRecommender.Model.User;
 import AI.MoviesRecommender.Security.Security;
 import Generator.Generator;
 
@@ -71,12 +72,25 @@ public class MainController {
 		Film f = filmDatabase.getFilm(film_ID);
 		model.addAttribute("f", f);
 		EngineFilm film = null;
-		for (EngineFilm fi : engineDatabase.getUserById(security.getUserID()).getSugFilms()) {
-			if (fi.getID().equals(film_ID)) {
-				film=fi;
+		
+		float procent = 0;
+		if(engineDatabase.getUserById(security.getUserID()) != null){
+			if(engineDatabase.getUserById(security.getUserID()).getSugFilms() != null){
+				for (EngineFilm fi : engineDatabase.getUserById(security.getUserID()).getSugFilms()) {
+					if (fi.getID().equals(film_ID)) {
+						film=fi;
+					}
+				}
+				if(film!=null){
+					if(film.haveRecomendation()){
+						procent = film.getRecomendation();
+					}
+				}
+				if(userDatabase.getUserByID(security.getUserID()).getPolubione().contains(film_ID)){
+					procent = 100f;
+				}
 			}
 		}
-		float procent = film.getRecomendation();
 		
 		model.addAttribute("procent", procent);
 		model.addAttribute("uID", security.getUserID());
@@ -111,7 +125,13 @@ public class MainController {
 		Security security = new Security(request, userDatabase);
 		if (!security.isLoged())
 			return "redirect:/login";//przekierowanie do logowania
-
+		User u = userDatabase.getUserByID(security.getUserID());
+		if (u.getPolubione() == null) {
+			return "redirect:/firstpage";
+		}
+		if (u.getPolubione().size() < 4) {
+			return "redirect:/firstpage";
+		}
 		Banner banner = new Banner(new Menu(), security.getFullUserData());
 		model.addAttribute(banner);
 
@@ -137,7 +157,7 @@ public class MainController {
 	@RequestMapping("/tmp")
 	public String tmp() {
 		Generator gen = new Generator(filmDatabase, userDatabase);
-		//gen.generateUsers(1000);
+		//gen.generateUsers(1000); // odkomentować w celu wygenerowania nowych userów
 		return "tmp";
 	}
 }

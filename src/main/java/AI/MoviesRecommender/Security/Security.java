@@ -36,7 +36,7 @@ public class Security {
 
     /**
      * Loguje użytkownika. Pobiera dane przesłane przez protokół POST Potrzebuje
-     * conajmniej danej "login"
+     * conajmniej danej "nick"
      * 
      * @version 1.0
      * @return true jeśli logowanie się powiodło
@@ -44,6 +44,42 @@ public class Security {
     public boolean login() {
         String nickname;
         String pass;
+
+        nickname = request.getParameter("nick").toString();
+        pass = request.getParameter("pass").toString();
+
+        if (nickname == null || nickname.isEmpty()) {
+            return false;
+        }
+
+        User resultUsers = database.getUserLoginData(nickname, pass);
+        if (resultUsers==null) {
+            return false;
+        } else {
+            String name = resultUsers.getNick();
+            String nazwisko = resultUsers.getEmail();
+            Long idU = resultUsers.getID();
+            HttpSession session = request.getSession();
+            session.setAttribute("imie", name); // dodawanie pola do sesji
+            session.setAttribute("nazwisko", nazwisko);
+            session.setAttribute("id", idU);
+            session.setMaxInactiveInterval(60 * 60); // usuniecie pol sesji po 60 minutach
+
+            return true;
+        }
+
+    }
+    /**
+     * Loguje użytkownika. z podanymi danymi w argumentach
+     * conajmniej danej "nick"
+     * @version 1.0
+     * 
+     * @param nickname - nick usera do zalogowania
+     * @param nickname - hasło usera do zalogowania
+     * 
+     * @return true jeśli logowanie się powiodło
+     */
+    public boolean login(String nickname, String pass) {
 
         nickname = request.getParameter("nick").toString();
         pass = request.getParameter("pass").toString();

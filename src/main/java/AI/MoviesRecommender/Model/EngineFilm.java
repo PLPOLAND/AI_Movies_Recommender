@@ -6,9 +6,11 @@ package AI.MoviesRecommender.Model;
 public class EngineFilm extends Film implements Comparable<EngineFilm>{
 
     float recomendation;
+    boolean haveRecomendation;
 
     public EngineFilm(Film f){
         super(f);
+        haveRecomendation = false;
     }
 
     public float getRecomendation() {
@@ -16,7 +18,11 @@ public class EngineFilm extends Film implements Comparable<EngineFilm>{
     }
 
     public void setRecomendation(float recomendation) {
+        haveRecomendation = true;
         this.recomendation = recomendation;
+    }
+    public boolean haveRecomendation(){
+        return haveRecomendation;
     }
 
     @Override

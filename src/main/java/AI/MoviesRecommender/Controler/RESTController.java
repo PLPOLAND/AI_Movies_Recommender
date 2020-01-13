@@ -1,5 +1,6 @@
 package AI.MoviesRecommender.Controler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,10 +47,17 @@ public class RESTController {
         u.setPass(password);
         u.setEmail(email);
 
-        /*boolean acomplished =*/userDatabase.save(u);
+        userDatabase.save(u);
         userDatabase.getDatabase().add(u);
+        Security security = new Security(request, userDatabase);
 
-        return true;
+        if (security.login(u.getNick(), u.getPass())) {
+            return true;
+        } else {
+            return false;
+        }
+
+        // return true;
     }
 
     @RequestMapping("/recommended")
@@ -117,23 +125,35 @@ public class RESTController {
         }
     }
     
-    @RequestMapping("/likeFilm") //TODO: nullexception
+    @RequestMapping("/likeFilm") 
     public boolean likeFilm(@RequestParam("idF") Long idF, HttpServletRequest request){
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
-        engineDatabase.updateUser(user);
-
-        if (user.getPolubione().contains(idF) && !user.getNielubione().contains(idF)) {
-            userDatabase.delLikeFilm(user, idF);
-            return false; // Zwróć informację o tym że film nie istnieje w polubionych
-        }
-        else if(!user.getPolubione().contains(idF) && user.getNielubione().contains(idF)){
-            userDatabase.likeFilm(user, idF);
-            userDatabase.delUnLikeFilm(user,idF);
+        if (user.getPolubione() != null) {
+            if (user.getPolubione().contains(idF)) {
+                userDatabase.delLikeFilm(user, idF);
+                if (user.getNielubione()!= null){
+                    if (user.getNielubione().contains(idF)){
+                        userDatabase.delUnLikeFilm(user,idF);
+                    }
+                }
+                engineDatabase.updateUser(user);//zaatualizuj proponowane usera
+                return false;
+            }
+            else{
+                userDatabase.likeFilm(user, idF);
+            }
         }
         else{
+            user.setPolubione(new ArrayList<>());
             userDatabase.likeFilm(user, idF);
         }
+        if (user.getNielubione()!= null){
+            if (user.getNielubione().contains(idF)){
+                userDatabase.delUnLikeFilm(user,idF);
+            }
+        }
+        engineDatabase.updateUser(user);//zaktualizuj proponowane usera
         return true; //Zwróć informację o tym że film istnieje w polubionych
     }
 
@@ -141,20 +161,45 @@ public class RESTController {
     public boolean unLikeFilm(@RequestParam("idF") Long idF, HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
-        engineDatabase.updateUser(user);
-
-        if (user.getNielubione().contains(idF) && !user.getPolubione().contains(idF)) {
-            userDatabase.delUnLikeFilm(user, idF);
-            return false;// Zwróć informację o tym że film nie istnieje w niepolubionych
-        } 
-        else if(!user.getNielubione().contains(idF) && user.getPolubione().contains(idF)){
-            userDatabase.delLikeFilm(user, idF);
-            userDatabase.UnLikeFilm(user, idF);
+        
+        if (user.getNielubione()!=null) {
+            if (user.getPolubione().contains(idF)) {
+                userDatabase.delUnLikeFilm(user, idF);
+                if (user.getPolubione() != null) {
+                    if (user.getPolubione().contains(idF)) {
+                        userDatabase.delLikeFilm(user, idF);
+                    }
+                }
+                engineDatabase.updateUser(user);//aktualizuj proponowane usera
+                return false;
+            }else{
+                userDatabase.UnLikeFilm(user, idF);
+            }
         }
-        else {
-            userDatabase.UnLikeFilm(user, idF);
+        else{
+            user.setNielubione(new ArrayList<>());
+            userDatabase.UnLikeFilm(user, idF); 
         }
+        if (user.getPolubione()!=null){
+            if (user.getPolubione().contains(idF)) {
+                userDatabase.delLikeFilm(user, idF);
+            }
+        }
+        
+        
+        // if (user.getNielubione().contains(idF) && !user.getPolubione().contains(idF)) {
+        //     userDatabase.delUnLikeFilm(user, idF);
+        //     return false;// Zwróć informację o tym że film nie istnieje w niepolubionych
+        // } 
+        // else if(!user.getNielubione().contains(idF) && user.getPolubione().contains(idF)){
+        //     userDatabase.delLikeFilm(user, idF);
+        //     userDatabase.UnLikeFilm(user, idF);
+        // }
+        // else {
+        //     userDatabase.UnLikeFilm(user, idF);
+        // }
+        engineDatabase.updateUser(user);// aktualizuj proponowane usera
         return true;// Zwróć informację o tym że film istnieje w niepolubionych
     }
-   
+    
 }

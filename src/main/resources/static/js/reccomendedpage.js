@@ -8,8 +8,9 @@ function seefilms() {
         data: {},
         success: function (response) {
             response.forEach(element => {
+                
                 var pos = $('<div class="film" id="f' + element.id + '">' +
-                    '<div class= "film-img" style = "background-image: url(' + element.zdjecie + ')" >' +
+                    '<div class= "film-img" '/*style = "background-image: url(' + element.zdjecie + ')"*/+'>' +
                     '<div class="ocena">' +
                     '<div class="ocena-icon">' +
                     '<i class="icon icon-like" onclick="likeFilm(' + element.id + ',this)"></i>' +
@@ -24,6 +25,10 @@ function seefilms() {
                     '</div>' +
                     '</div >' +
                     '</div >');
+                $('<img/>').attr('src', element.zdjecie).on('load', function () {
+                    $(this).remove();
+                    $(pos.children().get(0)).css('background-image', 'url(' + element.zdjecie + ')');
+                });
                 $('#mainbody').append(pos);
                 $(".film").hover(
                     function () {

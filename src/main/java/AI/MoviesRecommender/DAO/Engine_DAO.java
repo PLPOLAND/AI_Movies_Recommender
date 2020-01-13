@@ -77,10 +77,12 @@ public class Engine_DAO {
             EngineUser u = new EngineUser(user);
             
             List<Similarity> sim = engine.getSimUsers(u.getID());// dodanie podobnych userów
-            Collections.sort(sim);
+            if(sim != null)
+                Collections.sort(sim);
             u.setSimilarity(sim);
     
             List<EngineFilm> recoFilms = engine.getRecommendedFilmsList(u); // dodanie recomendowanych filmów
+            if(recoFilms != null)
             Collections.sort(recoFilms);
             u.setSugFilms(recoFilms);
             if (users == null) {
@@ -106,9 +108,13 @@ public class Engine_DAO {
 
         if (u != null) {
             if (u.getPolubione() == null) {
+                u.setSimilarity(null);
+                u.setSugFilms(null);
                 return null;
             }
             if (u.getPolubione().size() < 4) {
+                u.setSugFilms(null);
+                u.setSimilarity(null);
                 return null;
             }
             List<Similarity> sim = engine.getSimUsers(u.getID());
@@ -126,20 +132,25 @@ public class Engine_DAO {
                 } else {
                     u = new EngineUser(user);
                     if (u.getPolubione() == null) {
+                        u.setSugFilms(null);
+                        u.setSimilarity(null);
                         return null;
                     }
                     if (u.getPolubione().size() < 4) {
+                        u.setSugFilms(null);
+                        u.setSimilarity(null);
                         return null;
                     }
+                    createUser(user);
                 }
             }
-            List<Similarity> sim = engine.getSimUsers(u.getID());
-            Collections.sort(sim);// sortowanie
-            u.setSimilarity(sim);
-            List<EngineFilm> recoFilms = engine.getRecommendedFilmsList(u);// dodanie recomendowanych userów
-            Collections.sort(recoFilms);
-            u.setSugFilms(recoFilms);
-            users.add(u);
+            // List<Similarity> sim = engine.getSimUsers(u.getID());
+            // Collections.sort(sim);// sortowanie
+            // u.setSimilarity(sim);
+            // List<EngineFilm> recoFilms = engine.getRecommendedFilmsList(u);// dodanie recomendowanych userów
+            // Collections.sort(recoFilms);
+            // u.setSugFilms(recoFilms);
+            // users.add(u);
             
             // System.out.println("u = " + user.getID());
         }

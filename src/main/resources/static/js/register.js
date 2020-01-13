@@ -22,7 +22,7 @@ $(document).ready(function () {
                     
                     if (response == 1)
                     {
-                        window.location = "/";  
+                        window.location = "/firstpage";  
                     }
                 }
             });

@@ -12,7 +12,7 @@
     <c:url value="/css/main.css" var="jstlCss" />
     <c:url value="/js/main.js" var="javaScript" />
     <c:url value="/img/icon.png" var="icon" />
-    <c:url value="/css/films.css" var="filmy" />
+    <c:url value="/css/recommendFilms.css" var="filmy" />
     <c:url value="/css/fontello.css" var="fontello" />
     <link href="${fontello}" rel="stylesheet" />
     <link href="${filmy}" rel="stylesheet" />
