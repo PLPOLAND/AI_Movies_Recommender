@@ -241,6 +241,7 @@ public class Engine {
     public List<EngineFilm> getRecommendedFilmsList(EngineUser main_user) {
         if (main_user.getSimilarity() != null) {
             if (main_user.getSimilarity().size() >= 4) {
+                
                 List<Similarity> similarities = new ArrayList<>();
                 for (Similarity similarity : main_user.getSimilarity()) {
                     if (similarity.getSimilarity() >= similarity_treshold && similarities.size() <= similar_users_limit) {
