@@ -7,6 +7,7 @@ import java.util.List;
  * User wzbogacony o podobieństwo do innych userów i proponowane filmy
  * @author Marek Pałdyna
  * @see User
+ * @see AI.MoviesRecommender.DAO.Engine_DAO
  */
 public class EngineUser extends User {
     List<Similarity> similarityToOthers;

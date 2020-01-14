@@ -34,7 +34,9 @@ public class RESTController {
     @Autowired
     Engine_DAO engineDatabase;
 
-
+    /**
+     * Rejestracja 
+     */
     @RequestMapping("/register")
     public boolean register(HttpServletRequest request, @RequestParam("nick") String nick, @RequestParam("name") String name,
                             @RequestParam("lastname") String lastname, @RequestParam("pass") String password, @RequestParam("email") String email)
@@ -62,7 +64,9 @@ public class RESTController {
 
         // return true;
     }
-
+    /**
+     * Pobieranie recomendowanych 
+     */
     @RequestMapping("/recommended")
     public List<EngineFilm> recommended(HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
@@ -83,6 +87,9 @@ public class RESTController {
         return sugFilms;
     }
 
+    /**
+     * Logowanie usera
+     */
     @RequestMapping("/login")
     public boolean login(HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
@@ -95,29 +102,43 @@ public class RESTController {
             return false;
         }
     }
-
+    /**
+     * Pobieranie listy userów
+     */
     @RequestMapping("/allu")
     public List<User> getallusers(){
         return userDatabase.getDatabase();
     }
     
+    /**
+     * Pobieranie listy filmów
+     */
     @RequestMapping("/allf")
     public List<Film> getallfilms(){
         //System.out.println(filmDatabase.getDatabase());
         return filmDatabase.getDatabase();
     }
-
+    /**
+     * Pobieranie listy nielubionych filmów dla zalogowanego usera
+     */
     @RequestMapping("/getUnliked")
     public List<Long> getUnlikedForUser(HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
         return security.getFullUserData().getNielubione();
     }
+    /**
+     * Pobieranie listy polubionych filmów dla zalogowanego usera
+     * @param request
+     * @return
+     */
     @RequestMapping("/getLiked")
     public List<Long> getLikedForUser(HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
         return security.getFullUserData().getPolubione();
     }
-
+    /**
+     * Tworzenie nowego filmu
+     */
     @RequestMapping("/createFilm")
     public boolean createFilm(@RequestParam("tytul") String tytul, @RequestParam("zdjecie") String zdjecie, @RequestParam("gatunek") String gatunek, @RequestParam("rok") int rok) {
         if (filmDatabase.contains(tytul)) {
@@ -133,7 +154,9 @@ public class RESTController {
             return true;//Poinformuj o powodzeniu
         }
     }
-    
+    /**
+     * Dodanie filmu do listy lubionych dla zalogowanego usera 
+     */
     @RequestMapping("/likeFilm") 
     public boolean likeFilm(@RequestParam("idF") Long idF, HttpServletRequest request){
         Security security = new Security(request, userDatabase);
@@ -166,7 +189,10 @@ public class RESTController {
         return true; //Zwróć informację o tym że film istnieje w polubionych
     }
 
-    @RequestMapping("unLikeFilm") //TODO: nullexception
+    /**
+     * Dodanie filmu do listy nielubionych dla zalogowanego usera
+     */
+    @RequestMapping("unLikeFilm") 
     public boolean unLikeFilm(@RequestParam("idF") Long idF, HttpServletRequest request) {
         Security security = new Security(request, userDatabase);
         User user = security.getFullUserData();
@@ -194,19 +220,6 @@ public class RESTController {
                 userDatabase.delLikeFilm(user, idF);
             }
         }
-        
-        
-        // if (user.getNielubione().contains(idF) && !user.getPolubione().contains(idF)) {
-        //     userDatabase.delUnLikeFilm(user, idF);
-        //     return false;// Zwróć informację o tym że film nie istnieje w niepolubionych
-        // } 
-        // else if(!user.getNielubione().contains(idF) && user.getPolubione().contains(idF)){
-        //     userDatabase.delLikeFilm(user, idF);
-        //     userDatabase.UnLikeFilm(user, idF);
-        // }
-        // else {
-        //     userDatabase.UnLikeFilm(user, idF);
-        // }
         engineDatabase.updateUser(user);// aktualizuj proponowane usera
         return true;// Zwróć informację o tym że film istnieje w niepolubionych
     }

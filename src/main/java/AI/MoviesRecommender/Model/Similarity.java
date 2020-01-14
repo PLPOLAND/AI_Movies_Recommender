@@ -1,11 +1,13 @@
 package AI.MoviesRecommender.Model;
 
 /**
- * Similarity
+ * Similarity Klasa przetrzymująca dane o podobieństwie do innego usera
+ * 
+ * @see AI.MoviesRecommender.DAO.Engine_DAO
  */
 public class Similarity implements Comparable<Similarity>{
-    Long ID;
-    float similarity;
+    Long ID; //user do którego przyrównywnujemy
+    float similarity; //podobieństwo
     
     public Long getID() {
         return this.ID;

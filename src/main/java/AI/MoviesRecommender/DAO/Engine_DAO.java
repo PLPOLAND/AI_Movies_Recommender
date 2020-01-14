@@ -144,17 +144,7 @@ public class Engine_DAO {
                     createUser(user);
                 }
             }
-            // List<Similarity> sim = engine.getSimUsers(u.getID());
-            // Collections.sort(sim);// sortowanie
-            // u.setSimilarity(sim);
-            // List<EngineFilm> recoFilms = engine.getRecommendedFilmsList(u);// dodanie recomendowanych userów
-            // Collections.sort(recoFilms);
-            // u.setSugFilms(recoFilms);
-            // users.add(u);
-            
-            // System.out.println("u = " + user.getID());
         }
-        // System.out.println("User "+ Id +" updated");
         return u;
     }
 

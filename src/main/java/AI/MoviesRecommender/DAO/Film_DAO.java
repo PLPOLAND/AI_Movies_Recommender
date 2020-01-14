@@ -159,7 +159,12 @@ public class Film_DAO {
         this.data.add(film);//dodaj film do aktualnie przechowywanej bazy danych
     }
 
-
+    /**
+     * Zwraca listę filmów o podancyh ID
+     * 
+     * @param ids - filmy do zwrócenia
+     * @return List<Film> - filmy o podanych ID
+     */
     public List<Film> getFilmsFromIDs(List<Long> ids) {
         List<Film> films = new ArrayList<>();
 

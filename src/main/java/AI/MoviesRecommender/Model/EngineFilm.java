@@ -1,11 +1,14 @@
 package AI.MoviesRecommender.Model;
 
 /**
- * EngineFilm
+ * EngineFilm Klasa do obsługi rekomendacji dla filmu
+ * 
+ * @see Film
+ * @see AI.MoviesRecommender.DAO.Engine_DAO
  */
 public class EngineFilm extends Film implements Comparable<EngineFilm>{
 
-    float recomendation;
+    float recomendation; //procentowa wartość trafności 
     boolean haveRecomendation;
 
     public EngineFilm(Film f){
@@ -21,7 +24,12 @@ public class EngineFilm extends Film implements Comparable<EngineFilm>{
         haveRecomendation = true;
         this.recomendation = recomendation;
     }
-    public boolean haveRecomendation(){
+    
+    /**
+     * Czy posiada ustawioną wartość trafności
+     * @return boolean -czy posiada ustawioną wartość trafności 
+     */
+    public boolean haveRecomendation(){  
         return haveRecomendation;
     }
 

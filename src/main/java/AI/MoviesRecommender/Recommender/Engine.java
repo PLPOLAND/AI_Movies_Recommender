@@ -15,9 +15,13 @@ import AI.MoviesRecommender.Model.Film;
 import AI.MoviesRecommender.Model.Similarity;
 
 /**
- * Klasa przetrzymująca dane o filmie.
+ * Klasa przetwarzająca dane i obsugująca logikę potrzebną do rekomendacji
+ * filmów.
  * 
  * @author Rafał Świąder
+ * @author Marek Pałdyna
+ * 
+ * @see AI.MoviesRecommender.DAO.Engine_DAO
  */
 @Service
 public class Engine {
