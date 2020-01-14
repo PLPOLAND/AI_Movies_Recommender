@@ -24,6 +24,10 @@ $(document).ready(function () {
                     {
                         window.location = "/firstpage";  
                     }
+                    else{
+                        $("#err-msg").html("Gracz o podanym nicku istnieje");
+                        $("#err-msg").show("slow");
+                    }
                 }
             });
         }

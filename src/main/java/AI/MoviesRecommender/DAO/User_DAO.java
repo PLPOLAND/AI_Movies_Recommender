@@ -229,5 +229,20 @@ public class User_DAO {
             return false;
         }
     }
+    /**
+     * Funkcja sprawdzająca czy baza danych zawiera już taki nick
+     * @param nick - nick do znalezienia
+     * @return true - jeśli znaleziono nick
+     */
+	public boolean contains(String nick) {
+        for (User user : data) {
+            if (user.getNick()!=null) {
+                if(user.getNick().equals(nick)){
+                    return true;
+                }
+            }
+        }
+		return false;
+	}
 
 }

@@ -39,6 +39,9 @@ public class RESTController {
     public boolean register(HttpServletRequest request, @RequestParam("nick") String nick, @RequestParam("name") String name,
                             @RequestParam("lastname") String lastname, @RequestParam("pass") String password, @RequestParam("email") String email)
     {
+        if (userDatabase.contains(nick)) {//jeśli baza zawiera już usera o takim nicku zwróć informację że nie można stworzyć takiego usera
+            return false;
+        }
         User u = new User();
         u.setID(userDatabase.getNextID());
         u.setNick(nick);
@@ -46,7 +49,7 @@ public class RESTController {
         u.setNazwisko(lastname);
         u.setPass(password);
         u.setEmail(email);
-
+        
         userDatabase.save(u);
         userDatabase.getDatabase().add(u);
         Security security = new Security(request, userDatabase);

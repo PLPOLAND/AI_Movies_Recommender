@@ -41,7 +41,7 @@ public class Generator {
         for (int j = userDatabase.getNextID().intValue(); j < i; j++) {
             User u = new User();
             u.setID(new Long(j));
-            u.setPolubione(generateLiked(film_DAO.getDatabase().size() / 2));
+            u.setPolubione(generateLiked(film_DAO.getDatabase().size() / 4));
             u.setNielubione(generateUnLiked(film_DAO.getDatabase().size() / 10, u.getPolubione()));
             this.saveUser(u);
         }

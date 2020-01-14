@@ -30,7 +30,7 @@
                 <input type="text" class="form-field" placeholder="Twój Nick *" value="" name="nick" id="nick"/>
                 <input type="password" class="form-field" placeholder="Twoje Hasło *" value="" name="pass" id="pass"/>
                 <input type="button" id="subbutton" class="form-btn-submit" value="Zaloguj" /><br>
-                <a href="/register"><input type="button" id="subbutton" class="form-btn-submit" value="Rejestracja" /></a>
+                <a href="/register"><input type="button" id="regbutton" class="form-btn-submit" value="Rejestracja" /></a>
             </form>
         </div>
     </div>
