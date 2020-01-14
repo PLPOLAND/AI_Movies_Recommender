@@ -163,7 +163,7 @@ public class MainController {
 	@RequestMapping("/tmp")
 	public String tmp() {
 		Generator gen = new Generator(filmDatabase, userDatabase);
-		gen.generateUsers(1000); // odkomentować w celu wygenerowania nowych userów
+		// gen.generateUsers(1000); // odkomentować w celu wygenerowania nowych userów
 		return "tmp";
 	}
 }
