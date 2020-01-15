@@ -20,7 +20,7 @@ $(document).ready(function () {
 var films = null;
 var likedf = null;
 var unliked = null;
-var start = 0, end = 30;
+var start = 0, end = 60;
 
 function seefilms() {
     films = null;
@@ -50,7 +50,7 @@ function seefilms() {
                     colorLiked();
                 }
             });
-            window.setTimeout(seef(), 5);
+            window.setTimeout(seef, 5);
         }
     });
 
@@ -125,15 +125,20 @@ function seef() {
     if (unliked != null)
         colorDisLiked();
     start = end;
-    if ((end + 45) <= films.length) {
-        end += 45;
-        setTimeout(seef, 100);
+    if (end != films.length) {
 
-    }
-    else if (end + 1 <= films.length) {
-        end++;
+        end = films.length;
         setTimeout(seef, 10);
     }
+    // if ((end + 45) <= films.length) {
+    //     end += 45;
+    //     setTimeout(seef, 100);
+
+    // }
+    // else if (end + 1 <= films.length) {
+    //     end++;
+    //     setTimeout(seef, 10);
+    // }
 }
 
 function colorLiked() {
