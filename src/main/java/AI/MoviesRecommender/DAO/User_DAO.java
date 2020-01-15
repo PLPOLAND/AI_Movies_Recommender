@@ -66,8 +66,11 @@ public class User_DAO {
         if (user.getNielubione() == null) {
             user.setNielubione(new ArrayList<>());
         }
-        user.getNielubione().add(idFilm);
-        save(user);
+        if(!user.getNielubione().contains(idFilm))
+        {
+            user.getNielubione().add(idFilm);
+            save(user);
+        }
     }
     
     /**

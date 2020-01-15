@@ -198,7 +198,7 @@ public class RESTController {
         User user = security.getFullUserData();
         
         if (user.getNielubione()!=null) {
-            if (user.getPolubione().contains(idF)) {
+            if (user.getNielubione().contains(idF)) {
                 userDatabase.delUnLikeFilm(user, idF);
                 if (user.getPolubione() != null) {
                     if (user.getPolubione().contains(idF)) {
@@ -218,6 +218,8 @@ public class RESTController {
         if (user.getPolubione()!=null){
             if (user.getPolubione().contains(idF)) {
                 userDatabase.delLikeFilm(user, idF);
+                engineDatabase.updateUser(user);
+                return false;
             }
         }
         engineDatabase.updateUser(user);// aktualizuj proponowane usera
